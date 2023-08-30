@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\CoinPayment;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
+use CoinpaymentsAPI;
 
 class DepositController extends Controller
 {
@@ -42,23 +44,63 @@ class DepositController extends Controller
             return back()->withErrors(['Minimum Withdrawal Limit is: ' . site_option('min_deposit')]);
         }
 
-        $finalAmount = $validatedData['amount'];
-        $fees = 0;
         // getting this wallet fees
-        $wallet = Wallet::find($validatedData['paymentMethod']);
-        if ($wallet->fees > 0) {
-            $fees = $validatedData['amount'] * $wallet->fees /  100;
-            $finalAmount = $validatedData['amount'] + $fees;
-        }
+        $wallet = Wallet::findOrFail($validatedData['paymentMethod']);
 
         if ($wallet->status == null) {
-            abort(0);
+            abort(404);
         }
 
-        $amount = $validatedData['amount'];
-        $exchange = $validatedData['exchange'];
+        $private_key = env('PRIKEY');
+        $public_key = env('PUBKEY');
 
-        return view('user.deposit.address', compact('wallet', 'fees', 'finalAmount', 'amount', 'exchange'));
+        try {
+            $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
+            $amount = $validatedData['amount'];;
+            $currency1 = "USD";
+            $currency2 = $wallet->code;
+            $buyer_email = auth()->user()->email;
+            $ipn_url = env('IPN_URL');
+            $information = $cps_api->CreateSimpleTransactionWithConversion($amount, $currency1, $currency2, $buyer_email, $ipn_url);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+            exit();
+        }
+
+        if ($information['error'] != 'ok') {
+            return "Payment Gateway Timeout Error.";
+        }
+
+        // Inserting New Transaction Request Storing into session
+        $task = new CoinPayment();
+        $task->user_id = auth()->user()->id;
+        $task->amount = $information['result']['amount'];
+        $task->amountf = $validatedData['amount'];
+        $task->address = $information['result']['address'];
+        $task->timeout = $information['result']['timeout'];
+        $task->dest_tag = 1;
+        $task->from_currency = $currency1;
+        $task->to_currency = $currency2;
+        $task->txn_id = $information['result']['txn_id'];
+        $task->confirms_needed = $information['result']['confirms_needed'];
+        $task->checkout_url = $information['result']['checkout_url'];
+        $task->status_url = $information['result']['status_url'];
+        $task->qrcode_url = $information['result']['qrcode_url'];
+        $task->save();
+        $data = $information['result'];
+
+        $finalAmount = $information['result']['amount'];
+        $fees = 0;
+
+
+        if ($wallet->fees > 0) {
+            $fees = $information['result']['amount'] * $wallet->fees /  100;
+            $finalAmount = $information['result']['amount'] + $fees;
+        }
+
+        $amount = $information['result']['amount'];
+
+        return view('user.deposit.address', compact('data','wallet', 'fees', 'finalAmount', 'amount'));
     }
 
 

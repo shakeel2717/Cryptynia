@@ -43,11 +43,6 @@ class DeliverDirectCommission
                 die();
             }
 
-            if (checkFreezeDaysCount($sponser->id)) {
-                goto EndThisListener;
-                die();
-            }
-
             // checking networker account
             if ($user->networker) {
                 // info("Networker Account, Skipping Direct Profit");
@@ -55,7 +50,7 @@ class DeliverDirectCommission
             }
 
             // getting direct commission
-            $amount = $transaction->amount * $sponser->userPlan->plan->plan_profit->direct_commission / 100;
+            $amount = $transaction->amount * site_option('direct_commission') / 100;
 
             $thisSponser = $sponser->transactions()->create([
                 'type' => "Direct Commission",
@@ -63,10 +58,116 @@ class DeliverDirectCommission
                 'amount' => $amount,
                 'user_plan_id' => $sponser->userPlan->id,
                 'status' => true,
-                'reference' => 'Direct Commision from: ' . $user->username,
+                'reference' => 'Direct Commission from: ' . $user->username,
             ]);
-            $user_id = $thisSponser->user_id;
-            event(new FreezeBalanceVerification($user_id));
+
+            // delivering indirect Commission
+
+            if ($sponser->refer != 'default') {
+                // info("User have valid refer");
+
+                // finding the refer
+                $indirect1 = User::where('username', $user->refer)->first();
+                if (!$indirect1) {
+                    goto EndThisListener;
+                    die();
+                }
+
+                // checking if indirect1 is active
+                if ($indirect1->status != 'active') {
+                    goto EndThisListener;
+                    die();
+                }
+
+                // checking networker account
+                if ($user->networker) {
+                    // info("Networker Account, Skipping Direct Profit");
+                    goto EndThisListener;
+                }
+
+                // getting direct commission
+                $amount = $transaction->amount * site_option('in_direct_commission_1') / 100;
+
+                $thisindirect1 = $indirect1->transactions()->create([
+                    'type' => "In-Direct Commission L01",
+                    'sum' => true,
+                    'amount' => $amount,
+                    'status' => true,
+                    'reference' => 'In-Direct Commission from: ' . $user->username,
+                ]);
+
+                // delivering indirect Commission L02
+
+                if ($indirect1->refer != 'default') {
+                    // info("User have valid refer");
+
+                    // finding the refer
+                    $indirect2 = User::where('username', $user->refer)->first();
+                    if (!$indirect2) {
+                        goto EndThisListener;
+                        die();
+                    }
+
+                    // checking if indirect2 is active
+                    if ($indirect2->status != 'active') {
+                        goto EndThisListener;
+                        die();
+                    }
+
+                    // checking networker account
+                    if ($user->networker) {
+                        // info("Networker Account, Skipping Direct Profit");
+                        goto EndThisListener;
+                    }
+
+                    // getting direct commission
+                    $amount = $transaction->amount * site_option('in_direct_commission_2') / 100;
+
+                    $thisindirect2 = $indirect2->transactions()->create([
+                        'type' => "In-Direct Commission L02",
+                        'sum' => true,
+                        'amount' => $amount,
+                        'status' => true,
+                        'reference' => 'In-Direct Commission from: ' . $user->username,
+                    ]);
+
+                    // delivering indirect Commission L03
+
+                    if ($indirect2->refer != 'default') {
+                        // info("User have valid refer");
+
+                        // finding the refer
+                        $indirect3 = User::where('username', $user->refer)->first();
+                        if (!$indirect3) {
+                            goto EndThisListener;
+                            die();
+                        }
+
+                        // checking if indirect3 is active
+                        if ($indirect3->status != 'active') {
+                            goto EndThisListener;
+                            die();
+                        }
+
+                        // checking networker account
+                        if ($user->networker) {
+                            // info("Networker Account, Skipping Direct Profit");
+                            goto EndThisListener;
+                        }
+
+                        // getting direct commission
+                        $amount = $transaction->amount * site_option('in_direct_commission_3') / 100;
+
+                        $thisindirect3 = $indirect3->transactions()->create([
+                            'type' => "In-Direct Commission L03",
+                            'sum' => true,
+                            'amount' => $amount,
+                            'status' => true,
+                            'reference' => 'In-Direct Commission from: ' . $user->username,
+                        ]);
+                    }
+                }
+            }
         }
 
         EndThisListener:

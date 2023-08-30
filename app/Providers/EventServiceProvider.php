@@ -30,14 +30,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         PlanActivatedEvent::class => [
             DeliverDirectCommission::class,
-            DeliverBinaryCommission::class,
-            DeliverFreezeBalance::class,
-        ],
-        FreezeBalanceVerification::class => [
-            CheckNetworkingCap::class,
-        ],
-        ExpireUserPlanOnRoiCapReached::class => [
-            PlanExpiredOnRoiCapReached::class,
         ]
 
     ];

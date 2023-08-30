@@ -34,67 +34,134 @@ class DatabaseSeeder extends Seeder
 
         // adding default package plan
         $plan = new Plan();
-        $plan->name = "Silver Package";
-        $plan->min_price = 25;
-        $plan->max_price = 499;
-        $plan->min_profit = 0.75;
-        $plan->max_profit = 1;
+        $plan->name = "Plan 1";
+        $plan->price = 50;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 10;
+        $plan->duration = 90;
         $plan->save();
 
         $planProfit = new PlanProfit();
         $planProfit->plan_id = $plan->id;
         $planProfit->profit = $plan->min_profit;
-        $planProfit->direct_commission = 10;
-        $planProfit->binary_commission = 7;
         $planProfit->save();
 
         $plan = new Plan();
-        $plan->name = "Gold Package";
-        $plan->min_price = 500;
-        $plan->max_price = 9999;
+        $plan->name = "Plan 2";
+        $plan->price = 100;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.25;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 20;
+        $plan->duration = 90;
         $plan->save();
 
         $planProfit = new PlanProfit();
         $planProfit->plan_id = $plan->id;
         $planProfit->profit = $plan->min_profit;
-        $planProfit->direct_commission = 12;
-        $planProfit->binary_commission = 10;
         $planProfit->save();
 
         $plan = new Plan();
-        $plan->name = "Diamond Package";
-        $plan->min_price = 10000;
-        $plan->max_price = 1000000;
+        $plan->name = "Plan 3";
+        $plan->price = 300;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.50;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 30;
+        $plan->duration = 90;
         $plan->save();
 
         $planProfit = new PlanProfit();
         $planProfit->plan_id = $plan->id;
         $planProfit->profit = $plan->min_profit;
-        $planProfit->direct_commission = 15;
-        $planProfit->binary_commission = 12;
+        $planProfit->save();
+
+        $plan = new Plan();
+        $plan->name = "Plan 4";
+        $plan->price = 500;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 50;
+        $plan->duration = 90;
+        $plan->save();
+
+        $planProfit = new PlanProfit();
+        $planProfit->plan_id = $plan->id;
+        $planProfit->profit = $plan->min_profit;
+        $planProfit->save();
+
+        $plan = new Plan();
+        $plan->name = "Plan 5";
+        $plan->price = 1000;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 50;
+        $plan->duration = 90;
+        $plan->save();
+
+        $planProfit = new PlanProfit();
+        $planProfit->plan_id = $plan->id;
+        $planProfit->profit = $plan->min_profit;
+        $planProfit->save();
+
+        $plan = new Plan();
+        $plan->name = "Plan 6";
+        $plan->price = 3000;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 50;
+        $plan->duration = 90;
+        $plan->save();
+
+        $planProfit = new PlanProfit();
+        $planProfit->plan_id = $plan->id;
+        $planProfit->profit = $plan->min_profit;
+        $planProfit->save();
+
+        $plan = new Plan();
+        $plan->name = "Plan 7";
+        $plan->price = 5000;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 50;
+        $plan->duration = 90;
+        $plan->save();
+
+        $planProfit = new PlanProfit();
+        $planProfit->plan_id = $plan->id;
+        $planProfit->profit = $plan->min_profit;
+        $planProfit->save();
+
+        $plan = new Plan();
+        $plan->name = "Plan 8";
+        $plan->price = 10000;
+        $plan->min_profit = 1;
+        $plan->max_profit = 1.5;
+        $plan->withdrawals = 50;
+        $plan->duration = 90;
+        $plan->save();
+
+        $planProfit = new PlanProfit();
+        $planProfit->plan_id = $plan->id;
+        $planProfit->profit = $plan->min_profit;
         $planProfit->save();
 
 
         $wallet = new Wallet();
         $wallet->name = "Tether";
         $wallet->symbol = "USDT";
+        $wallet->code = "USDT.TRC20";
         $wallet->network = "TRX";
         $wallet->icon = "usdt.png";
-        $wallet->fees = 1;
-        $wallet->address = "kwejrlwjer2l3kj4l2j34ljl";
+        $wallet->fees = 0;
         $wallet->save();
-        
+
         $wallet = new Wallet();
         $wallet->name = "Ethereum";
         $wallet->symbol = "ETH";
+        $wallet->code = "ETH";
         $wallet->network = "ETH";
         $wallet->icon = "ethereum.png";
-        $wallet->fees = 1;
-        $wallet->address = "kwejrlwjer2l3kj4l2j34ljl";
+        $wallet->fees = 0;
         $wallet->save();
 
         $option = new Option();
@@ -114,6 +181,28 @@ class DatabaseSeeder extends Seeder
         $option->value = 5;
         $option->save();
 
+
+        $option = new Option();
+        $option->key = 'direct_commission';
+        $option->value = 5;
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'in_direct_commission_1';
+        $option->value = 2;
+        $option->save();
+
+
+        $option = new Option();
+        $option->key = 'in_direct_commission_2';
+        $option->value = 1;
+        $option->save();
+
+
+        $option = new Option();
+        $option->key = 'in_direct_commission_3';
+        $option->value = 0.5;
+        $option->save();
 
         $option = new Option();
         $option->key = 'networkCap';

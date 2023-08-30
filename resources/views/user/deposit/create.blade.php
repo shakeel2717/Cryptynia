@@ -8,7 +8,7 @@
                     <h2 class="card-title">Deposit Funds</h2>
                     <hr>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 mb-3">
                             <p><strong>1. </strong>Select Payment Method</p>
                         </div>
                     </div>
@@ -16,20 +16,21 @@
                         @csrf
                         <div class="row g-4">
                             @foreach ($wallets as $wallet)
-                                <div class="col-lg-6">
-                                    <div class="form-check card-radio">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center p-2 border rounded border-1 border-primary gap-2">
                                         <input id="paymentMethod{{ $loop->iteration }}" name="paymentMethod" type="radio"
                                             value="{{ $wallet->id }}" class="form-check-input"
                                             {{ $loop->first ? 'checked' : '' }}>
                                         <label class="form-check-label" for="paymentMethod{{ $loop->iteration }}">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="avatar">
+                                                <span class="avatar me-2">
                                                     <img src="{{ asset('methods/') }}/{{ $wallet->icon }}" width="40"
                                                         alt="{{ $wallet->name }}">
                                                 </span>
                                                 <span
                                                     class="fs-3xl float-end mt-2 text-wrap d-block fw-semibold">{{ $wallet->name }}
-                                                    ({{ $wallet->symbol }}) ({{ $wallet->network }}) 
+                                                    ({{ $wallet->symbol }})
+                                                    ({{ $wallet->network }})
                                                 </span>
                                             </div>
                                         </label>
@@ -44,7 +45,7 @@
                                     <label for="amount">Amount in USD $ <span class="text-danger">*</span></label>
                                     <input type="text" name="amount" id="amount" class="form-control"
                                         placeholder="Enter Amount in USD">
-                                        <small class="text-danger">Please Enter Amount in only USD</small>
+                                    <small class="text-danger">Please Enter Amount in only USD</small>
                                 </div>
                                 <input type="hidden" name="exchange" value="Binance">
                             </div>

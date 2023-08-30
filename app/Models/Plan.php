@@ -11,11 +11,12 @@ class Plan extends Model
 
     protected $fillable = [
         'name',
-        'min_price',
-        'max_price',
+        'price',
         'min_profit',
         'max_profit',
         'status',
+        'withdrawals',
+        'duration'
     ];
 
     public function plan_profit()

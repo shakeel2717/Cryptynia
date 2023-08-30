@@ -67,7 +67,7 @@ function totalRoi($user_id)
     if (!$user->userPlan) {
         return 0;
     }
-    $transaction = Transaction::where('user_id', $user_id)->where('type', 'Daily ROI')->where('user_plan_id', $user->userPlan->id)->sum('amount');
+    $transaction = Transaction::where('user_id', $user_id)->where('type', 'Daily ROI')->sum('amount');
     return $transaction;
 }
 
@@ -293,7 +293,7 @@ function getPackageByAmount($amount)
 {
     $plans = Plan::get();
     foreach ($plans as $plan) {
-        if ($amount >= $plan->min_price && $amount <= $plan->max_price) {
+        if ($amount == $plan->price) {
             return $plan->id;
         }
     }

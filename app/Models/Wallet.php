@@ -12,6 +12,7 @@ class Wallet extends Model
         'symbol',
         'network',
         'name',
+        'code',
         'icon',
         'fees',
         'address',

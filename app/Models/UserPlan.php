@@ -14,6 +14,7 @@ class UserPlan extends Model
         'plan_id',
         'status',
         'amount',
+        'created_at'
     ];
 
     public function user()

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('min_price');
-            $table->double('max_price');
+            $table->double('price');
             $table->double('min_profit');
             $table->double('max_profit');
+            $table->double('withdrawals');
+            $table->double('duration');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

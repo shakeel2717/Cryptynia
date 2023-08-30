@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('symbol');
             $table->string('network')->nullable();
             $table->string('name');
-            $table->string('address');
+            $table->string('code');
             $table->string('icon');
             $table->string('fees');
             $table->boolean('status')->default(true);

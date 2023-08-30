@@ -5,12 +5,11 @@
         <div class="col-md-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">Withdrawal Funds <small>(Note: Withdrawal Timing 12:01PM to 11:59PM.) <br> (Saturday, Sunday
-                            Withdrawal Off) UTC +05:00</small></h2>
+                    <h2 class="card-title">Withdrawal Funds </h2>
                     <hr>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card bg-danger shadow-lg card-body">
+                        <div class="col-md-12 mb-4">
+                            <div class="card bg-primary shadow-lg card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <i class="ph-wallet fs-1"></i>
@@ -22,7 +21,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 mb-2">
                             <p><strong>1. </strong>Select Payment Method</p>
                         </div>
                     </div>
@@ -30,20 +29,21 @@
                         @csrf
                         <div class="row g-4">
                             @foreach ($wallets as $wallet)
-                                <div class="col-lg-6">
-                                    <div class="form-check card-radio">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center p-2 border rounded border-1 border-primary gap-2">
                                         <input id="paymentMethod{{ $loop->iteration }}" name="paymentMethod" type="radio"
                                             value="{{ $wallet->id }}" class="form-check-input"
                                             {{ $loop->first ? 'checked' : '' }}>
                                         <label class="form-check-label" for="paymentMethod{{ $loop->iteration }}">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="avatar">
+                                                <span class="avatar me-2">
                                                     <img src="{{ asset('methods/') }}/{{ $wallet->icon }}" width="40"
                                                         alt="{{ $wallet->name }}">
                                                 </span>
                                                 <span
                                                     class="fs-3xl float-end mt-2 text-wrap d-block fw-semibold">{{ $wallet->name }}
                                                     ({{ $wallet->symbol }})
+                                                    ({{ $wallet->network }})
                                                 </span>
                                             </div>
                                         </label>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="text-end mt-4">
-                            <button type="submit" class="btn btn-danger btn-label"> Withdraw Reqeust <i
+                            <button type="submit" class="btn btn-primary btn-label"> Withdraw Reqeust <i
                                     class="ph-arrow-fat-line-right label-icon align-middle fs-lg me-2"></i></button>
                         </div>
                     </form>
