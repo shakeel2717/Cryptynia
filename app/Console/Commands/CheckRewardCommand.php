@@ -36,8 +36,8 @@ class CheckRewardCommand extends Command
             }
 
             // getting this user matching business
-            $totalMatchingBusiness = totalMatchingBusiness($user->id);
-            if ($totalMatchingBusiness < 1) {
+            $myDirectBusiness = myDirectBusiness($user->id);
+            if ($myDirectBusiness < 1) {
                 info("not Eligible For Reward");
             }
 
@@ -46,8 +46,8 @@ class CheckRewardCommand extends Command
             $currentRewardRequried = 0;
             foreach ($rewards as $reward) {
                 $currentRewardRequried += $reward->business;
-                if (totalMatchingBusiness($user->id) < $currentRewardRequried) {
-                    info("Reward not Achieved" . totalMatchingBusiness($user->id) . " " . $reward->business);
+                if (myDirectBusiness($user->id) < $currentRewardRequried) {
+                    info("Reward not Achieved" . myDirectBusiness($user->id) . " " . $reward->business);
                     goto ThisUserEndLoop;
                 }
 

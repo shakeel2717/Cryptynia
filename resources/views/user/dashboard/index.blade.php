@@ -4,179 +4,42 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-12 col-xl-12 stretch-card">
-            <div class="row flex-grow-1">
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Available Balance</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(balance(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Total Income</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(totalIncome(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Total Withdrawal</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(getAllWithdraw(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Today ROI</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(todayRoi(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Today Withdrawal</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(getTodayWithdraw(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Total ROI</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(totalRoi(auth()->user()->id), 2) }}</h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Total Direct Commission</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <h3 class="my-2">
-                                        ${{ number_format(totalDirectCommission(auth()->user()->id), 2) }}
-                                    </h3>
-                                    <div class="d-flex align-items-baseline">
-                                        <p class="text-success">
-                                            <span>+0.0%</span>
-                                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-12 col-xl-7">
-                                    <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('inc.box', [
+            'title' => 'Available Balance',
+            'value' => number_format(balance(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total Income',
+            'value' => number_format(totalIncome(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total Withdrawal',
+            'value' => number_format(getAllWithdraw(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Today ROI',
+            'value' => number_format(todayRoi(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Today Withdrawal',
+            'value' => number_format(getTodayWithdraw(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total ROI',
+            'value' => number_format(totalRoi(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total Direct Commission',
+            'value' => number_format(totalDirectCommission(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total ROI',
+            'value' => number_format(totalRoi(auth()->user()->id), 2),
+        ])
+        @include('inc.box', [
+            'title' => 'Total ROI',
+            'value' => number_format(totalRoi(auth()->user()->id), 2),
+        ])
     </div>
     <div class="row">
         <div class="col-md-12">

@@ -44,7 +44,7 @@
                                         <p class="text-muted mb-0">Amount in USD</p>
                                     </div>
                                     <div class="text-end">
-                                        <h5 class="fs-md text-primary mb-0">${{ number_format($finalAmount, 2) }}</h5>
+                                        <h5 class="fs-md text-primary mb-0">${{ number_format($amount, 2) }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                         <p class="text-muted mb-0">Total Amount (Includd Tax + Charges)</p>
                                     </div>
                                     <div class="text-end">
-                                        <h5 class="fs-md text-primary mb-0">${{ number_format($finalAmount, 2) }}</h5>
+                                        <h5 class="fs-md text-primary mb-0">${{ number_format($amount, 2) }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -122,6 +122,15 @@
                                                 value="{{ $data['address'] }}" readonly>
                                             <small class="mt-4">Send your Funds to This Wallet Address</small>
                                         </div>
+
+                                        <div class="form-group mb-4">
+                                            <label for="network">Network</label>
+                                            <input type="text" name="network" id="network"
+                                                class="form-control text-center" placeholder="API Address"
+                                                value="{{ $wallet->network }}" readonly>
+                                            <small class="mt-4">Please note that only supported networks are shown, if you
+                                                deposit via another network your assets may be lost.</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <p class="">Your Funds will be automaticaly added into your account.</p>
@@ -137,7 +146,7 @@
                                 <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{ $data['address'] }}&chld=L|1&choe=UTF-8"
                                     alt="Address">
                                 <div class="row">
-                                    <small>Wallet: {{ $data['address'] }} & Amount:
+                                    <small class="mt-4">Wallet: {{ $data['address'] }} <br> & Amount:
                                         {{ number_format(getDepositAmount($wallet->symbol, $finalAmount), 8) }}
                                         {{ $wallet->symbol }}</small>
                                 </div>

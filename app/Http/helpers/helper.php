@@ -99,41 +99,6 @@ function totalDirectCommission($user_id)
     return $transaction;
 }
 
-
-function networkCap($user_id)
-{
-    $user = User::find($user_id);
-    $userPlan = $user->userPlan;
-    if ($userPlan == "") {
-        return 0;
-    }
-
-    return $userPlan->network_cap_transactions->sum('amount') - freezeTransactionRecovered($user_id, $userPlan->id);
-}
-
-// gett all freze transaction recover
-function freezeTransactionRecovered($user_id, $userPlan_id)
-{
-    $transaction = Transaction::where('user_id', $user_id)->where('type', 'Freeze Balance')->where('user_plan_id', $userPlan_id)->sum('amount');
-    return $transaction;
-}
-
-
-
-function networkCapInPercentage($user_id)
-{
-    if (networkCap($user_id) < 1) {
-        return 0;
-    }
-
-    $percentage = (networkCap($user_id) / (getActivePlan($user_id) * site_option('networkCap'))) * 100;
-    if ($percentage > 100) {
-        return 100;
-    } else {
-        return $percentage;
-    }
-}
-
 function myReferrals($user_id)
 {
     $user = User::find($user_id);
@@ -143,6 +108,17 @@ function myReferrals($user_id)
         $leftUserCount++;
     }
     return $leftUserCount;
+}
+
+function myDirectBusiness($user_id)
+{
+    $user = User::find($user_id);
+    $refers = User::where('refer', $user->username)->get();
+    $directBusiness = 0;
+    foreach ($refers as $refer) {
+        $directBusiness = $refer->userPlans()->sum('amount');
+    }
+    return $directBusiness;
 }
 
 function leftReferrals($user_id)
@@ -442,9 +418,8 @@ function getDepositAmount($currency, $usdAmount)
     }
 
     $currency = $currency . "USDT";
-    $apiKey = env('BINANCE_API_KEY');
     $response = Http::withHeaders([
-        'X-MBX-APIKEY' => $apiKey,
+        'X-MBX-APIKEY' => '',
     ])->get('https://api.binance.com/api/v3/ticker/price', [
         'symbol' => $currency,
     ]);

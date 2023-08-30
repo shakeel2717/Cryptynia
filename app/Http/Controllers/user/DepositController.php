@@ -98,7 +98,7 @@ class DepositController extends Controller
             $finalAmount = $information['result']['amount'] + $fees;
         }
 
-        $amount = $information['result']['amount'];
+        $amount = $validatedData['amount'];
 
         return view('user.deposit.address', compact('data','wallet', 'fees', 'finalAmount', 'amount'));
     }

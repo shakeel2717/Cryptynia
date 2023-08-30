@@ -32,6 +32,18 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
 
+        $user = new User();
+        $user->name = "Shakeel Ahmad";
+        $user->username = "shakeel2717";
+        $user->email = "shakeel2717@gmail.com";
+        $user->mobile = "03001212133";
+        $user->country = "Pakistan";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->refer = 'admin';
+        $user->save();
+
+
         // adding default package plan
         $plan = new Plan();
         $plan->name = "Plan 1";
@@ -220,56 +232,32 @@ class DatabaseSeeder extends Seeder
 
         $reward = new Reward();
         $reward->name = "PROMINENCE";
-        $reward->business = 3000;
-        $reward->reward = 200;
+        $reward->business = 1000;
+        $reward->reward = 50;
         $reward->save();
 
         $reward = new Reward();
         $reward->name = "EMPYREAN";
-        $reward->business = 10000;
-        $reward->reward = 500;
+        $reward->business = 3000;
+        $reward->reward = 150;
         $reward->save();
 
         $reward = new Reward();
         $reward->name = "PINNACLE";
-        $reward->business = 25000;
-        $reward->reward = 1000;
+        $reward->business = 5000;
+        $reward->reward = 300;
         $reward->save();
 
         $reward = new Reward();
         $reward->name = "ELITE";
-        $reward->business = 50000;
-        $reward->reward = 2000;
+        $reward->business = 10000;
+        $reward->reward = 700;
         $reward->save();
 
         $reward = new Reward();
         $reward->name = "APEX";
-        $reward->business = 100000;
-        $reward->reward = 5000;
-        $reward->save();
-
-        $reward = new Reward();
-        $reward->name = "SOVEREIGN";
-        $reward->business = 250000;
-        $reward->reward = 10000;
-        $reward->save();
-
-        $reward = new Reward();
-        $reward->name = "LUMINARY";
-        $reward->business = 500000;
-        $reward->reward = 20000;
-        $reward->save();
-
-        $reward = new Reward();
-        $reward->name = "ECHELON";
-        $reward->business = 3000000;
-        $reward->reward = 50000;
-        $reward->save();
-
-        $reward = new Reward();
-        $reward->name = "SUPREME";
-        $reward->business = 10000000;
-        $reward->reward = 100000;
+        $reward->business = 30000;
+        $reward->reward = 3000;
         $reward->save();
     }
 }
