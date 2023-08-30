@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/demo2/style.css">
     <link rel="shortcut icon" href="/assets/images/favicon.png" />
+    @livewireStyles()
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -201,6 +203,7 @@
     <script src="/assets/js/template.js"></script>
     <script src="/assets/js/dashboard-dark.js"></script>
     <x-alert />
+    @livewireScripts()
 </body>
 
 </html>
