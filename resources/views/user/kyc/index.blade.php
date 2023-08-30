@@ -4,7 +4,7 @@
     @if (auth()->user()->kyc && auth()->user()->kyc->status == false)
         <div class="row">
             <div class="col-md-6 mx-auto">
-                <div class="alert alert-dark">
+                <div class="alert alert-primary">
                     Your KYC Request is Under Review!
                 </div>
             </div>

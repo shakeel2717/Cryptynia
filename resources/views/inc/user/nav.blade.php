@@ -88,6 +88,11 @@
             <i class="link-icon" data-feather="box"></i>
             <span class="link-title">Profile Settings</span>
         </a>
+    </li><li class="nav-item">
+        <a href="{{ route('user.kyc.index') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">KYC Verification</span>
+        </a>
     </li>
     <li class="nav-item">
         <a href="{{ route('user.profile.index') }}" class="nav-link">
