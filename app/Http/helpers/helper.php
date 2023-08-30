@@ -140,9 +140,7 @@ function myReferrals($user_id)
     $refers = User::where('refer', $user->username)->get();
     $leftUserCount = 0;
     foreach ($refers as $refer) {
-        if ($refer->position == 'left' || $refer->position == 'right') {
-            $leftUserCount++;
-        }
+        $leftUserCount++;
     }
     return $leftUserCount;
 }

@@ -34,6 +34,9 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user')->group(functio
         Route::view('direct', 'user.history.direct')->name('direct');
         Route::view('roi', 'user.history.roi')->name('roi');
         Route::view('all', 'user.history.all')->name('all');
+        Route::view('indirect1', 'user.history.indirect1')->name('indirect1');
+        Route::view('indirect2', 'user.history.indirect2')->name('indirect2');
+        Route::view('indirect3', 'user.history.indirect3')->name('indirect3');
     });
 });
 

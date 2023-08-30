@@ -44,6 +44,11 @@ class WithdrawController extends Controller
             return back()->withErrors(['Insufficient Balance']);
         }
 
+        // checking if withdraw is stopped for this user
+        if (!auth()->user()->withdraw) {
+            return back()->withErrors(['Withdraw is Temporary Suspended']);
+        }
+
         // checking if deposit amount is enough
         if ($validatedData['amount'] < site_option('min_deposit')) {
             return back()->withErrors(['Minimum Withdrawal Limit is: ' . site_option('min_deposit')]);

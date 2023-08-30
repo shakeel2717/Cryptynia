@@ -41,8 +41,8 @@
             </div>
             <div class="sidebar-body">
                 @if (auth()->user()->role == 'admin')
-                    @include('inc.user.nav')
                     @include('inc.admin.nav')
+                    @include('inc.user.nav')
                 @else
                     @include('inc.user.nav')
                 @endif

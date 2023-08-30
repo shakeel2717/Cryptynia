@@ -20,8 +20,7 @@ final class AllUsers extends PowerGridComponent
     use ActionButton;
     use WithExport;
 
-    public $fname;
-    public $lname;
+    public $name;
     public $email;
 
 
@@ -131,16 +130,6 @@ final class AllUsers extends PowerGridComponent
                 return myReferrals($model->id);
             })
 
-            ->addColumn('left_team', function (User $model) {
-                return leftReferrals($model->id);
-            })
-
-            ->addColumn('right_team', function (User $model) {
-                return rightReferrals($model->id);
-            })
-
-
-
             ->addColumn('username')
             ->addColumn('email')
             ->addColumn('refer')
@@ -167,12 +156,7 @@ final class AllUsers extends PowerGridComponent
     {
         return [
             // Column::make('Id', 'id'),
-            Column::make('FName', 'fname')
-                ->sortable()
-                ->editOnClick()
-                ->searchable(),
-
-            Column::make('LName', 'lname')
+            Column::make('Full Name', 'name')
                 ->sortable()
                 ->editOnClick()
                 ->searchable(),
@@ -193,14 +177,6 @@ final class AllUsers extends PowerGridComponent
                 ->editOnClick()
                 ->searchable(),
 
-            Column::make('Position', 'position')
-                ->sortable()
-                ->searchable(),
-
-            // Column::make('Status', 'status')
-            //     ->sortable()
-            //     ->searchable(),
-
             Column::make('Status', 'status'),
 
             Column::make('Networker', 'networker')
@@ -209,8 +185,6 @@ final class AllUsers extends PowerGridComponent
             Column::make('Balance', 'balance'),
             Column::make('Investment', 'investment'),
             Column::make('My Referrals', 'my_referrals'),
-            Column::make('Left Team', 'left_team'),
-            Column::make('Right Team', 'right_team'),
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
@@ -226,8 +200,7 @@ final class AllUsers extends PowerGridComponent
     public function filters(): array
     {
         return [
-            Filter::inputText('fname')->operators(['contains']),
-            Filter::inputText('lname')->operators(['contains']),
+            Filter::inputText('name')->operators(['contains']),
             Filter::inputText('username')->operators(['contains']),
             Filter::inputText('email')->operators(['contains']),
             Filter::inputText('refer')->operators(['contains']),
@@ -259,53 +232,45 @@ final class AllUsers extends PowerGridComponent
     {
         return [
             // Button::make('delete', 'Delete')
-            //     ->class('btn btn-danger btn-sm')
+            //     ->class('btn btn-primary btn-sm')
             //     ->emit('delete', ['id' => 'id']),
 
             // Button::make('suspend', 'Suspend')
-            //     ->class('btn btn-danger btn-sm')
+            //     ->class('btn btn-primary btn-sm')
             //     ->emit('suspend', ['id' => 'id']),
 
             // Button::make('activate', 'Activate')
-            //     ->class('btn btn-danger btn-sm')
+            //     ->class('btn btn-primary btn-sm')
             //     ->emit('activate', ['id' => 'id']),
 
             // Button::make('withdraw', 'Withdraw All Fund')
-            //     ->class('btn btn-danger btn-sm')
+            //     ->class('btn btn-primary btn-sm')
             //     ->emit('withdraw', ['id' => 'id']),
 
             Button::make('pin', 'Make PIN')
-                ->class('btn btn-danger btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->emit('pin', ['id' => 'id']),
 
-            Button::make('removeVip', 'Remove VIP')
-                ->class('btn btn-warning btn-sm')
-                ->emit('removeVip', ['id' => 'id']),
-
-
-            Button::make('vip', 'Make VIP')
-                ->class('btn btn-danger btn-sm')
-                ->emit('vip', ['id' => 'id']),
 
             Button::make('withdrawStop', 'Withdraw Stop')
-                ->class('btn btn-danger btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->emit('withdrawStop', ['id' => 'id']),
 
             Button::make('withdrawStart', 'Withdraw Start')
-                ->class('btn btn-danger btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->emit('withdrawStart', ['id' => 'id']),
 
             Button::make('unpin', 'Make Normal')
-                ->class('btn btn-danger btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->emit('unpin', ['id' => 'id']),
 
             Button::make('login', 'Login')
-                ->class('btn btn-danger btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->emit('login', ['id' => 'id']),
 
 
             // Button::make('package', 'Activate Package')
-            //     ->class('btn btn-danger btn-sm')
+            //     ->class('btn btn-primary btn-sm')
             //     ->emit('package', ['id' => 'id']),
 
             //    Button::make('destroy', 'Delete')
@@ -324,8 +289,6 @@ final class AllUsers extends PowerGridComponent
             [
                 'delete'   => 'delete',
                 'pin'   => 'pin',
-                'vip'   => 'vip',
-                'removeVip'   => 'removeVip',
                 'login'   => 'login',
                 'unpin'   => 'unpin',
                 'package'   => 'package',
@@ -576,25 +539,6 @@ final class AllUsers extends PowerGridComponent
     }
 
 
-
-    public function vip($id)
-    {
-        $user = User::find($id['id']);
-        $user->vip = true;
-        $user->save();
-
-        $this->dispatchBrowserEvent('deleted', ['status' => 'User Account Converted to PIN Account']);
-    }
-
-    public function removeVip($id)
-    {
-        $user = User::find($id['id']);
-        $user->vip = false;
-        $user->save();
-
-        $this->dispatchBrowserEvent('deleted', ['status' => 'PIN Account Converted to Normal Account']);
-    }
-
     public function withdrawStop($id)
     {
         $user = User::find($id['id']);
@@ -644,14 +588,6 @@ final class AllUsers extends PowerGridComponent
 
             Rule::button('pin')
                 ->when(fn ($user) => $user->networker == true)
-                ->hide(),
-
-            Rule::button('vip')
-                ->when(fn ($user) => $user->vip == true)
-                ->hide(),
-
-            Rule::button('removeVip')
-                ->when(fn ($user) => $user->vip == false)
                 ->hide(),
 
             Rule::button('unpin')
