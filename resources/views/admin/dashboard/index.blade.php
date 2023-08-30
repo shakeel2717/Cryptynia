@@ -92,23 +92,5 @@
                 App\Models\Transaction::where('type', 'Direct Commission')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
                 2),
         ])
-        @include('inc.box', [
-            'title' => 'Total Binary Commission',
-            'value' => number_format(
-                App\Models\Transaction::where('type', 'Binary Commission')->whereDate('created_at', '>=', newDateTimeForStats())->where('status', true)->sum('amount'),
-                2),
-        ])
-        @include('inc.box', [
-            'title' => 'Today Binary Commission',
-            'value' => number_format(
-                App\Models\Transaction::where('type', 'Binary Commission')->whereDate('created_at', '>=', newDateTimeForStats())->where('status', true)->sum('amount'),
-                2),
-        ])
-        @include('inc.box', [
-            'title' => 'Total Binary Commission',
-            'value' => number_format(
-                App\Models\Transaction::where('type', 'Binary Commission')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
-                2),
-        ])
     </div>
 @endsection

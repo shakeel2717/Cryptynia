@@ -28,22 +28,14 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group mb-3">
-                                                        <label for="fname">First Name <span
+                                                        <label for="fname">Full Name <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="fname" id="fname"
                                                             class="form-control" placeholder="Enter Name"
-                                                            value="{{ auth()->user()->fname }}">
+                                                            value="{{ auth()->user()->name }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group mb-3">
-                                                        <label for="lname">Last Name <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="lname" id="lname"
-                                                            class="form-control" placeholder="Last Name"
-                                                            value="{{ auth()->user()->lname }}">
-                                                    </div>
-                                                </div>
+                                               
                                                 <div class="col-md-12">
                                                     <div class="form-group mb-3">
                                                         <label for="email">Email Address <span
