@@ -171,12 +171,6 @@ class DatabaseSeeder extends Seeder
 
 
         $option = new Option();
-        $option->key = 'deposit_fees';
-        $option->value = 1;
-        $option->save();
-
-
-        $option = new Option();
         $option->key = 'withdraw_fees';
         $option->value = 5;
         $option->save();
@@ -203,28 +197,6 @@ class DatabaseSeeder extends Seeder
         $option->key = 'in_direct_commission_3';
         $option->value = 0.5;
         $option->save();
-
-        $option = new Option();
-        $option->key = 'networkCap';
-        $option->value = 3;
-        $option->save();
-
-        $option = new Option();
-        $option->key = 'rewards_auto';
-        $option->value = true;
-        $option->save();
-
-
-        $option = new Option();
-        $option->key = 'freeze_transaction_duration';
-        $option->value = -15;
-        $option->save();
-
-        $option = new Option();
-        $option->key = 'daily_roi_network_x';
-        $option->value = 2;
-        $option->save();
-
 
 
         $post = new Post();

@@ -16,8 +16,6 @@ final class AllPlanProfit extends PowerGridComponent
     use WithExport;
 
     public $profit;
-    public $direct_commission;
-    public $binary_commission;
 
 
     /*
@@ -118,16 +116,6 @@ final class AllPlanProfit extends PowerGridComponent
         return [
             Column::make('Plan id', 'plan'),
             Column::make('Profit', 'profit')
-                ->sortable()
-                ->editOnClick()
-                ->searchable(),
-
-            Column::make('Direct commission', 'direct_commission')
-                ->sortable()
-                ->editOnClick()
-                ->searchable(),
-
-            Column::make('Binary commission', 'binary_commission')
                 ->sortable()
                 ->editOnClick()
                 ->searchable(),
