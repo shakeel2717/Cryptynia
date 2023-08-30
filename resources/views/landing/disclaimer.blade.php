@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ env('APP_NAME') }}</title>
-</head>
-<body>
-    <h2>Disclaimer Page</h2>
-</body>
-</html>
+@extends('layout.app')
+@section('content')
+    <section class="contact-one-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Disclaimer</h2>
+                </div>
+                <br><br>
+                <div class="col-md-12">
+                    <p>Disclaimer Text</p>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

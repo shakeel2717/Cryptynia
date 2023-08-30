@@ -64,7 +64,7 @@
                             <div class="header_upper_inner clearfix">
                                 <div class="header_upper_one_box pull-left">
                                     <div class="logo">
-                                        <a href="index.html">
+                                        <a href="{{ route('index') }}">
                                             <h2 class="fw-bold text-uppercase">{{ env('APP_NAME') }}</h2>
                                         </a>
                                     </div>
@@ -108,8 +108,9 @@
                     <div class="outer-container">
                         <div class="header-column">
                             <div class="logo-box">
-                                <div class="logo"><a href="index.html"><img src="/landing/images/logo.png"
-                                            alt="" title=""></a></div>
+                                <div class="logo"><a href="{{ route('index') }}">
+                                        <h2 class="fw-bold text-uppercase">{{ env('APP_NAME') }}</h2>
+                                    </a></div>
                             </div>
                         </div>
                         <div class="header-column">
