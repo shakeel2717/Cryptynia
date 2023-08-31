@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ env('APP_NAME') }} Test</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <link href="/landing/css/bootstrap.css" rel="stylesheet">
     <link href="/landing/css/magnific-popup.css" rel="stylesheet">
