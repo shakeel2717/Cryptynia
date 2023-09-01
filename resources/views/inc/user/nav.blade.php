@@ -19,6 +19,19 @@
             <span class="link-title">Withdrawal</span>
         </a>
     </li>
+    <li class="nav-item nav-category">Exchange Funds</li>
+    <li class="nav-item">
+        <a href="{{ route('user.exchange.index') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Buy Crypto</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('user.exchange.create') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Sell Crypto</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Package Plans</li>
     <li class="nav-item">
         <a href="{{ route('user.plan.index') }}" class="nav-link">

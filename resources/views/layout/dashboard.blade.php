@@ -203,6 +203,7 @@
     <script src="/assets/js/template.js"></script>
     <script src="/assets/js/dashboard-dark.js"></script>
     <x-alert />
+    @yield('footer')
     @livewireScripts()
 </body>
 

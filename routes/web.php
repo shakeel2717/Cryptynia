@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\NewsLetterController;
@@ -27,6 +28,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user')->group(functio
     Route::post('/profile/password', [UserProfileController::class, 'password'])->name('profile.password');
     Route::resource('profile', UserProfileController::class);
     Route::resource('kyc', KycController::class);
+    Route::resource('exchange', ExchangeController::class);
 
     Route::controller(HistoryController::class)->name('history.')->prefix('history/')->group(function () {
         Route::view('deposits', 'user.history.deposits')->name('deposits');
