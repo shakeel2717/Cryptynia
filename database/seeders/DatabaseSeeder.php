@@ -210,6 +210,11 @@ class DatabaseSeeder extends Seeder
         $option->value = 0.5;
         $option->save();
 
+        $option = new Option();
+        $option->key = 'deposit_bonus';
+        $option->value = 10;
+        $option->save();
+
 
         $post = new Post();
         $post->title = 'The Basics of Forex Trading: A Beginner\'s Guide';

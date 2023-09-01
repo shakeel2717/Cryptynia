@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CoinPaymentController;
 use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LandingPageController;
@@ -57,6 +58,10 @@ Route::get('/about', [LandingPageController::class, 'about'])->name('about');
 Route::resource('/', LandingPageController::class);
 Route::resource('/post', PostController::class);
 Route::resource('/newsletter', NewsLetterController::class);
+
+Route::prefix('payment')->group(function () {
+    Route::post('/webhook', [CoinPaymentController::class, 'webhook'])->name('webhook');
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

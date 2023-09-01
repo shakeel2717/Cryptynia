@@ -120,4 +120,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Exchange::class);
     }
+
+    public function CoinPayment()
+    {
+        return $this->hasMany(CoinPayment::class);
+    }
 }

@@ -25,4 +25,9 @@ class CoinPayment extends Model
         'status_url',
         'qrcode_url',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

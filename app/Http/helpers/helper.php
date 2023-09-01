@@ -457,3 +457,9 @@ function newDateTimeForStats()
 {
     return now()->parse("2023-08-19 04:48:52");
 }
+
+function edie($string)
+{
+    info($string);
+    die();
+}
