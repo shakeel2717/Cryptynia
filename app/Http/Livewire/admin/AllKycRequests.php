@@ -94,6 +94,12 @@ final class AllKycRequests extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('user_id')
             ->addColumn('name')
+            ->addColumn('front_img', function (Kyc $model) {
+                return "<img src=" . asset('kyc/') . '/' . $model->front . " style='width:50px;'>";
+            })
+            ->addColumn('back_img', function (Kyc $model) {
+                return "<img src=" . asset('kyc/') . '/' . $model->back . " style='width:50px;'>";
+            })
 
             /** Example of custom column using a closure **/
             ->addColumn('username', fn (Kyc $model) => strtolower(e($model->user->username)))
@@ -131,15 +137,11 @@ final class AllKycRequests extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('B Name', 'b_name')
+            Column::make('Front', 'front_img')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('B Relationship', 'b_f_name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('B Mobile', 'b_mobile')
+            Column::make('Back', 'back_img')
                 ->sortable()
                 ->searchable(),
 

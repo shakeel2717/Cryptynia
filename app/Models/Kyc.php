@@ -14,10 +14,8 @@ class Kyc extends Model
         'cnic',
         'dob',
         'address',
-        'b_name',
-        'b_f_name',
-        'b_mobile',
-        'status',
+        'front',
+        'back',
     ];
 
 

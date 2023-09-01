@@ -49,30 +49,30 @@
                                         placeholder="Enter Full Address" required>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="b_name">Beneficiary Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="b_name" id="b_name" class="form-control"
-                                        placeholder="Enter Beneficiary Name" required>
+                            <div class="col-md-6">
+                                <div class="alert alert-dark">
+                                    <div class="text-center">
+                                        <img src="{{ asset('front.png') }}" class="mb-3" alt="ID Card" width="150">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="front" class="text-white">Front Side</label>
+                                        <input type="file" name="front" id="front" class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="b_f_name">Beneficiary Relationship <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="b_f_name" id="b_f_name" class="form-control"
-                                        placeholder="Enter Beneficiary Relationship" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group mb-3">
-                                    <label for="b_mobile">Beneficiary Mobile Number <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="b_mobile" id="b_mobile" class="form-control"
-                                        placeholder="Enter Beneficiary Father's Name" required>
+                            <div class="col-md-6">
+                                <div class="alert alert-dark">
+                                    <div class="text-center">
+                                        <img src="{{ asset('back.png') }}" class="mb-3" alt="ID Card" width="150">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="back" class="text-white">Back Side</label>
+                                        <input type="file" name="back" id="back" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="text-end mt-4">
                             <button type="submit" class="btn btn-danger btn-label"> Submit KYC Request <i
                                     class="ph-arrow-fat-line-right label-icon align-middle fs-lg me-2"></i></button>

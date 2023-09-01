@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('cnic');
             $table->string('dob');
             $table->string('address');
-            $table->string('b_name');
-            $table->string('b_f_name');
-            $table->string('b_mobile');
+            $table->string('front');
+            $table->string('back');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

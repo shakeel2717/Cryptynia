@@ -92,5 +92,23 @@
                 App\Models\Transaction::where('type', 'Direct Commission')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
                 2),
         ])
+        @include('inc.box', [
+            'title' => 'In-Direct Commission L01',
+            'value' => number_format(
+                App\Models\Transaction::where('type', 'In-Direct Commission L01')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
+                2),
+        ])
+        @include('inc.box', [
+            'title' => 'In-Direct Commission L02',
+            'value' => number_format(
+                App\Models\Transaction::where('type', 'In-Direct Commission L02')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
+                2),
+        ])
+        @include('inc.box', [
+            'title' => 'In-Direct Commission L03',
+            'value' => number_format(
+                App\Models\Transaction::where('type', 'In-Direct Commission L03')->where('status', true)->whereDate('created_at', now()->today())->sum('amount'),
+                2),
+        ])
     </div>
 @endsection
