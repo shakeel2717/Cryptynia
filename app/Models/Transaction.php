@@ -19,6 +19,7 @@ class Transaction extends Model
         'user_plan_id',
         'withdraw_id',
         'reward_id',
+        'exchange_id'
     ];
 
     public function user()

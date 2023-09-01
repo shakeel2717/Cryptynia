@@ -34,6 +34,22 @@ class ExchangeController extends Controller
             'price' => 'required|min:1|max:999999'
         ]);
 
+        // checking if this user profile is updated
+        if (
+            empty(auth()->user()->account->bank_name) ||
+            empty(auth()->user()->account->account_title) ||
+            empty(auth()->user()->account->account_title)
+        ) {
+            return back()->withErrors(['Please Update Your Payment Profile First']);
+        }
+
+
+
+        // checking if this user have enough balnace
+        if (balance(auth()->user()->id) < $validatedData['amount']) {
+            return back()->withErrors(['Insufficient Balance']);
+        }
+
         // creating new p2p order
         $exchange = new Exchange();
         $exchange->user_id = auth()->user()->id;
@@ -41,7 +57,18 @@ class ExchangeController extends Controller
         $exchange->price = $validatedData['price'];
         $exchange->save();
 
-        return back()->with('status', 'Your P2P Order Placed');
+        // removing balance from this user account
+        auth()->user()->transactions()->create([
+            'type' => 'P2P Sell',
+            'sum' => false,
+            'status' => false,
+            'reference' => 'USDT Sell P2P @ ' . number_format($exchange->price, 2),
+            'exchange_id' => $exchange->id,
+            'amount' => $exchange->amount,
+        ]);
+
+
+        return back()->with('success', 'Your P2P Order Placed');
     }
 
     /**
@@ -73,6 +100,18 @@ class ExchangeController extends Controller
      */
     public function destroy(Exchange $exchange)
     {
-        //
+        // removing balance from this user account
+        auth()->user()->transactions()->create([
+            'type' => 'P2P Sell Reverse',
+            'sum' => true,
+            'status' => true,
+            'reference' => 'P2P Order Deleted: USDT Sell P2P @ ' . number_format($exchange->price, 2),
+            'amount' => $exchange->amount,
+        ]);
+
+        $exchange->status = false;
+        $exchange->save();
+
+        return back()->with('success', 'P2P Transaction Deleted');
     }
 }

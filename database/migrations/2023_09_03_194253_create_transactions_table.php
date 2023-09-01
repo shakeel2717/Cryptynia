@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('withdraw_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('user_plan_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('reward_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('exchange_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

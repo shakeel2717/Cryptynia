@@ -9,8 +9,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12 mb-4">
-                            @if (empty(auth()->user()->account->bank_name) &&
-                                    empty(auth()->user()->account->account_title) &&
+                            @if (empty(auth()->user()->account->bank_name) ||
+                                    empty(auth()->user()->account->account_title) ||
                                     empty(auth()->user()->account->account_title))
                                 <div class="card bg-danger shadow-lg card-body">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -115,6 +115,45 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto mt-4">
+            <div class="card card-body mb-4">
+                <h2 class="card-title">Your Pending Orders</h2>
+                @forelse (auth()->user()->exchange->where('status',true) as $exchange)
+                    <div class="card shadow-lg mb-2">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-column">
+                                    <h4 class="mb-2 text-uppercase"><small>For Sell </small>
+                                        ${{ number_format($exchange->amount, 2) }}/- @
+                                        {{ number_format($exchange->price, 2) }}/- PKR</h4>
+
+                                    <h6 class="text-uppercase mb-2">You'll Get:
+                                        {{ number_format($exchange->amount * $exchange->price, 2) }} PKR</h6>
+                                </div>
+                                <div class="text-end">
+                                    <form action="{{ route('user.exchange.destroy', ['exchange' => $exchange->id]) }}"
+                                        method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="card shadow-lg">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="text-success">NO Transaction Found</h4>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

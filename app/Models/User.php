@@ -110,4 +110,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Account::class);
     }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function exchange()
+    {
+        return $this->hasMany(Exchange::class);
+    }
 }

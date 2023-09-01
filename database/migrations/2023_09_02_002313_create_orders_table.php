@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('exchange_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->double('amount');
             $table->double('amount_in_pkr');
             $table->string('screenshot');
             $table->boolean('status')->default(false);

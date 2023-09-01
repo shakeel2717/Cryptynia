@@ -45,8 +45,27 @@ class OrderController extends Controller
         $order->user_id = auth()->user()->id;
         $order->exchange_id = $validatedData['exchange_id'];
         $order->screenshot = $screenshot_name;
-        $order->amount_in_pkr = $validatedData['amount'];
+        $order->amount = $validatedData['amount'];
+        $order->amount_in_pkr = $validatedData['amount'] * $exchange->price;
         $order->save();
+
+        if ($exchange->amount == $order->amount) {
+            $exchange->status = true;
+            $exchange->save();
+        } else {
+            $exchange->amount -= $order->amount;
+            $exchange->save();
+
+            // adding sold transaction
+            $soldTransaction = $exchange->user->transactions()->create([
+                'type' => 'P2P Order Complete',
+                'sum' => false,
+                'status' => true,
+                'exchange_id' => $exchange->id,
+                'reference' => $order->user->username . ' Buy :' . number_format($order->amount, 2),
+                'amount' => $order->amount,
+            ]);
+        }
 
         return back()->with('success', 'Order Placed, Your Funds will be added into your account payment verification');
     }
