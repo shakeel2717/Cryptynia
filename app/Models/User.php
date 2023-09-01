@@ -106,40 +106,8 @@ class User extends Authenticatable
         return $this->hasMany(Tid::class);
     }
 
-    public function left_user()
+    public function account()
     {
-        return $this->belongsTo(User::class, 'left_user_id');
-    }
-
-
-    public function right_user()
-    {
-        return $this->belongsTo(User::class, 'right_user_id');
-    }
-
-    public function getMyDownline($side)
-    {
-        $downline = [];
-
-        if ($side === 'left') {
-            if ($this->left_user) {
-                $downline[] = $this->left_user;
-                $downline = array_merge($downline, $this->left_user->getMyDownline('left'));
-                $downline = array_merge($downline, $this->left_user->getMyDownline('right'));
-            }
-        } elseif ($side === 'right') {
-            if ($this->right_user) {
-                $downline[] = $this->right_user;
-                $downline = array_merge($downline, $this->right_user->getMyDownline('left'));
-                $downline = array_merge($downline, $this->right_user->getMyDownline('right'));
-            }
-        }
-
-        return $downline;
-    }
-
-    public function freeze_transactions()
-    {
-        return $this->hasMany(FreezeTransaction::class);
+        return $this->hasOne(Account::class);
     }
 }
