@@ -188,7 +188,7 @@
                 <p class="text-muted mb-1 mb-md-0">Copyright © {{ date('Y') }} <a href="https://www.nobleui.com"
                         target="_blank">{{ env('APP_NAME') }}</a>.</p>
                 <p class="text-muted">Handcrafted With <i class="mb-1 text-primary ms-1 icon-sm"
-                        data-feather="heart"></i> By <a href="#">Asan Webs Development</a></p>
+                        data-feather="heart"></i> By <a href="#">{{ env('APP_NAME') }}</a></p>
             </footer>
             <!-- partial -->
 
