@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WithdrawComplete;
 use App\Mail\WithdrawRequest;
 use App\Models\Wallet;
 use App\Models\Withdraw;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use CoinpaymentsAPI;
 
 class WithdrawController extends Controller
 {
@@ -39,7 +41,10 @@ class WithdrawController extends Controller
             'wallet' => 'required|string',
         ]);
 
-        // checking if this user have enough balnace
+        $private_key = env('PRIKEY');
+        $public_key = env('PUBKEY');
+
+        // checking if this user have enough balance
         if (balance(auth()->user()->id) < $validatedData['amount']) {
             return back()->withErrors(['Insufficient Balance']);
         }
@@ -49,9 +54,9 @@ class WithdrawController extends Controller
             return back()->withErrors(['Withdraw is Temporary Suspended']);
         }
 
-        // checking if deposit amount is enough
-        if ($validatedData['amount'] < site_option('min_deposit')) {
-            return back()->withErrors(['Minimum Withdrawal Limit is: ' . site_option('min_deposit')]);
+        // checking if withdraw amount is enough
+        if ($validatedData['amount'] < site_option('min_withdraw')) {
+            return back()->withErrors(['Minimum Withdrawal Limit is: ' . site_option('min_withdraw')]);
         }
 
         if (!env('APP_DEBUG')) {
@@ -64,9 +69,9 @@ class WithdrawController extends Controller
         $wallet = Wallet::findOrFail($validatedData['paymentMethod']);
 
         // getting user active plan
-        if (empty(auth()->user()->userPlan)) {
-            return back()->withErrors(['You must have Active Plan in order to Get Paid']);
-        }
+        // if (empty(auth()->user()->userPlan)) {
+        //     return back()->withErrors(['You must have Active Plan in order to Get Paid']);
+        // }
 
         $fees = $validatedData['amount'] * site_option('withdraw_fees') / 100;
         $amount = $validatedData['amount'] - $fees;
@@ -103,6 +108,47 @@ class WithdrawController extends Controller
             Mail::to(auth()->user()->email)->send(new WithdrawRequest($withdraw));
         }
 
+        if (site_option('auto_withdrawal')) {
+            $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
+
+            $withdrawalParams = [
+                'amount' => $amount,
+                'currency' => $wallet->code,
+                'add_tx_fee' => 0,
+                'address' => $validatedData['wallet'],
+                'ipn_url' => env('IPN_URL'),
+                'auto_confirm' => 0,
+                'note' => 'Withdrawal Request for user: ' . auth()->user()->username,
+            ];
+
+            try {
+                $withdrawalResult = $cps_api->CreateWithdrawal($withdrawalParams);
+                info($withdrawalResult);
+
+                if ($withdrawalResult['error'] == 'ok') {
+                    $withdrawalId = $withdrawalResult['result']['id'];
+                    $withdraw->txId = $withdrawalId;
+                    $withdraw->status = true;
+                    $withdraw->save();
+
+                    // approving transaction
+                    foreach ($withdraw->transactions as $transaction) {
+                        $transaction->status = true;
+                        $transaction->reference = $transaction->reference . " & txId: " . $withdrawalId;
+                        $transaction->save();
+                    }
+
+                    if (!env('APP_DEBUG')) {
+                        // sending email to this user
+                        Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
+                    }
+                } else {
+                    info("Withdrawal request failed: {$withdrawalResult['error']}");
+                }
+            } catch (\Exception $e) {
+                info("Error: " . $e->getMessage());
+            }
+        }
 
         return back()->with('success', 'Withdraw Request Send Successfully');
     }

@@ -192,8 +192,19 @@ class DatabaseSeeder extends Seeder
 
 
         $option = new Option();
+        $option->key = 'min_withdraw';
+        $option->value = 10;
+        $option->save();
+
+
+        $option = new Option();
         $option->key = 'withdraw_fees';
         $option->value = 5;
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'auto_withdrawal';
+        $option->value = 1;
         $option->save();
 
 
