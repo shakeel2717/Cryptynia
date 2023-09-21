@@ -176,7 +176,16 @@
                         <h4 class="mb-3 mb-md-0">Welcome {{ auth()->user()->username }}</h4>
                     </div>
                     <div class="buttons">
-                        <a href="{{ route('user.deposit.create') }}" class="btn btn-primary btn-lg">Deposit Funds</a>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Deposit Funds
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('user.deposit.create') }}">Deposit via Gateway</a>
+                                <a class="dropdown-item" href="{{ route('user.exchange.index') }}">Deposit via P2P</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @yield('content')
