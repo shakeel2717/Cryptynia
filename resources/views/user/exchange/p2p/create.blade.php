@@ -101,6 +101,13 @@
                                         placeholder="Enter Amount">
                                 </div>
                             </div>
+                            <div class="col-md-12 mb-4">
+                                <div class="form-group">
+                                    <label for="currency">Select Currency <span class="text-danger">*</span></label>
+                                    <input type="text" name="currency" id="currency" class="form-control"
+                                        placeholder="PKR">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="price">Price in PKR <span class="text-danger">*</span></label>

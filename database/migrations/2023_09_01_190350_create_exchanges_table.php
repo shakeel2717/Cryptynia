@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->double('amount');
             $table->double('price');
+            $table->string('currency')->default('PKR');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

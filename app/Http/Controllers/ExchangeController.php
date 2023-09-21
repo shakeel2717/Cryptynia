@@ -31,6 +31,7 @@ class ExchangeController extends Controller
     {
         $validatedData = $request->validate([
             'amount' => 'required|min:1|max:999999',
+            'currency' => 'required|string|max:3',
             'price' => 'required|min:1|max:999999'
         ]);
 
@@ -55,6 +56,7 @@ class ExchangeController extends Controller
         $exchange->user_id = auth()->user()->id;
         $exchange->amount = $validatedData['amount'];
         $exchange->price = $validatedData['price'];
+        $exchange->currency = $validatedData['currency'];
         $exchange->save();
 
         // removing balance from this user account

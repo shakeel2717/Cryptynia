@@ -13,6 +13,7 @@ class Exchange extends Model
         'user_id',
         'amount',
         'price',
+        'currency',
         'status',
     ];
 
