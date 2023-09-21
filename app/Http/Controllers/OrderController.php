@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Exchange;
 use App\Models\Order;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -43,6 +44,7 @@ class OrderController extends Controller
 
         $order = new Order();
         $order->user_id = auth()->user()->id;
+        $order->seller_id = $exchange->user_id;
         $order->exchange_id = $validatedData['exchange_id'];
         $order->screenshot = $screenshot_name;
         $order->amount = $validatedData['amount'];
@@ -50,21 +52,44 @@ class OrderController extends Controller
         $order->save();
 
         if ($exchange->amount == $order->amount) {
-            $exchange->status = true;
+            $exchange->status = false;
             $exchange->save();
+
+            // creating new exchange transaction
+            $transaction = Transaction::where('exchange_id', $exchange->id)->first();
+            $transaction->save();
         } else {
             $exchange->amount -= $order->amount;
             $exchange->save();
 
-            // adding sold transaction
-            $soldTransaction = $exchange->user->transactions()->create([
-                'type' => 'P2P Order Complete',
-                'sum' => false,
-                'status' => true,
-                'exchange_id' => $exchange->id,
-                'reference' => $order->user->username . ' Buy :' . number_format($order->amount, 2),
-                'amount' => $order->amount,
-            ]);
+            // creating new exchange transaction
+            $transaction = Transaction::where('exchange_id', $exchange->id)->first();
+            $transaction->amount -= $order->amount;
+            $transaction->save();
+            // duplicate exchange transaction
+            $transaction = $transaction->replicate();
+
+            $exchange = $exchange->replicate();
+            $exchange->amount = $order->amount;
+            $exchange->status = false;
+            $exchange->save();
+
+            $order->exchange_id = $exchange->id;
+            $order->save();
+
+            $transaction->exchange_id = $exchange->id;
+            $transaction->amount = $order->amount;
+            $transaction->save();
+
+            // // adding sold transaction
+            // $soldTransaction = $exchange->user->transactions()->create([
+            //     'type' => 'P2P Order Complete',
+            //     'sum' => false,
+            //     'status' => true,
+            //     'exchange_id' => $exchange->id,
+            //     'reference' => $order->user->username . ' Buy :' . number_format($order->amount, 2),
+            //     'amount' => $order->amount,
+            // ]);
         }
 
         return back()->with('success', 'Order Placed, Your Funds will be added into your account payment verification');

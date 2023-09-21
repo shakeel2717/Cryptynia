@@ -40,7 +40,16 @@ class DatabaseSeeder extends Seeder
         $user->country = "Pakistan";
         $user->email_verified_at = now();
         $user->password = bcrypt('asdfasdf');
-        $user->refer = 'admin';
+        $user->save();
+
+        $user = new User();
+        $user->name = "Basharat Ali";
+        $user->username = "basharat604";
+        $user->email = "basharat@gmail.com";
+        $user->mobile = "03001212130";
+        $user->country = "Pakistan";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
         $user->save();
 
 

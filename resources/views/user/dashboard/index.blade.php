@@ -3,6 +3,8 @@
     Welcome Back {{ auth()->user()->username }}
 @endsection
 @section('content')
+    @include('inc.user.p2p_sent')
+    @include('inc.p2p_recieve')
     <div class="row">
         @include('inc.box', [
             'title' => 'Available Balance',

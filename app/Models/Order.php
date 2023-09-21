@@ -11,6 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'seller_id',
         'exchange_id',
         'amount',
         'amount_in_pkr',
@@ -21,5 +22,9 @@ class Order extends Model
     function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function exchange(){
+        return $this->belongsTo(Exchange::class);
     }
 }

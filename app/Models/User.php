@@ -111,7 +111,7 @@ class User extends Authenticatable
         return $this->hasOne(Account::class);
     }
 
-    public function order()
+    public function orders()
     {
         return $this->hasMany(Order::class);
     }
@@ -124,5 +124,10 @@ class User extends Authenticatable
     public function CoinPayment()
     {
         return $this->hasMany(CoinPayment::class);
+    }
+
+    public function confirmOrders()
+    {
+        return $this->hasMany(Order::class, 'seller_id')->where('status', false);
     }
 }

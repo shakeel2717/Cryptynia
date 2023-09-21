@@ -6,6 +6,7 @@ use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\NewsLetterController;
+use App\Http\Controllers\OrderConfirmationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
@@ -34,6 +35,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user')->group(functio
     Route::resource('exchange', ExchangeController::class);
     Route::resource('account', AccountController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('order-confirm', OrderConfirmationController::class);
 
     Route::controller(HistoryController::class)->name('history.')->prefix('history/')->group(function () {
         Route::view('deposits', 'user.history.deposits')->name('deposits');

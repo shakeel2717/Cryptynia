@@ -24,6 +24,14 @@
                         @csrf
                         <hr>
                         <input type="hidden" name="exchange_id" value="{{ $exchange->id }}">
+                        <div class="card bg-success shadow-lg card-body mb-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <i class="ph-wallet fs-1"></i>
+                                    <h4 class="card-title mb-0 ms-2">Please send Payment to This Bank Account, and then uplaod screenshot and submit for review</h4>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <h3 class="title mb-3">
