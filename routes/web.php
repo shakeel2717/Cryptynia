@@ -32,7 +32,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user')->group(functio
     Route::post('/profile/password', [UserProfileController::class, 'password'])->name('profile.password');
     Route::resource('profile', UserProfileController::class);
     Route::resource('kyc', KycController::class);
-    Route::resource('exchange', ExchangeController::class);
+    Route::resource('exchange', ExchangeController::class)->middleware('kyc');
     Route::resource('account', AccountController::class);
     Route::resource('order', OrderController::class);
     Route::resource('order-confirm', OrderConfirmationController::class);
