@@ -204,6 +204,7 @@
     <script src="/landing/js/jquery.magnific-popup.min.js"></script>
     <script src="/landing/js/parallax.min.js"></script>
     <script src="/landing/js/custom.js"></script>
+    <script src="//code.tidio.co/uhsiieqxtiepz7gmkssp2gengec2vvqz.js" async></script>
     <x-alert />
 </body>
 
