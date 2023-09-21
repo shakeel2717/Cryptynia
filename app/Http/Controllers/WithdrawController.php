@@ -39,6 +39,8 @@ class WithdrawController extends Controller
             'paymentMethod' => 'required|integer|exists:wallets,id',
             'amount' => 'required|numeric|min:1',
             'wallet' => 'required|string',
+            'wallet' => 'required|string',
+            'code' => 'required|string',
         ]);
 
         $private_key = env('PRIKEY');
@@ -47,6 +49,11 @@ class WithdrawController extends Controller
         // checking if this user have enough balance
         if (balance(auth()->user()->id) < $validatedData['amount']) {
             return back()->withErrors(['Insufficient Balance']);
+        }
+
+        // checking OTP
+        if ($validatedData['code'] != session('token')) {
+            return back()->withErrors(['OTP Not Matched, Please try again']);
         }
 
         // checking if withdraw is stopped for this user
