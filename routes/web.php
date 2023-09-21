@@ -20,7 +20,7 @@ use App\Http\Controllers\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('user/')->name('user.')->middleware('auth', 'user')->group(function () {
+Route::prefix('user/')->name('user.')->middleware('auth', 'user', 'verified')->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::post('/deposit/verify', [DepositController::class, 'verify'])->name('deposit.verify');
     Route::resource('deposit', DepositController::class);
