@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('blockchain:run')->dailyAt("12:00");
         $schedule->command('check:reward')->daily();
+        $schedule->command('check:team-reward')->daily();
     }
 
     /**
