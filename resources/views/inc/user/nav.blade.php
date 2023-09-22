@@ -88,6 +88,31 @@
             <span class="link-title">All In-Direct L03</span>
         </a>
     </li>
+    <li class="nav-item nav-category">Referrals Report</li>
+    <li class="nav-item">
+        <a href="{{ route('user.referrals.direct') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">All Direct Referrals</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('user.referrals.level1') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">All In-Direct L01</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('user.referrals.level2') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">All In-Direct L02</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('user.referrals.level3') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">All In-Direct L03</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Ranks & Rewards</li>
     <li class="nav-item">
         <a href="{{ route('user.ranks.index') }}" class="nav-link">

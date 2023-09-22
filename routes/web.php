@@ -47,6 +47,12 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user', 'verified')->g
         Route::view('indirect2', 'user.history.indirect2')->name('indirect2');
         Route::view('indirect3', 'user.history.indirect3')->name('indirect3');
     });
+    Route::controller(HistoryController::class)->name('referrals.')->prefix('referrals/')->group(function () {
+        Route::view('direct', 'user.referrals.direct')->name('direct');
+        Route::view('level1', 'user.referrals.level1')->name('level1');
+        Route::view('level2', 'user.referrals.level2')->name('level2');
+        Route::view('level3', 'user.referrals.level3')->name('level3');
+    });
 });
 
 Route::get('/privacy', [LandingPageController::class, 'privacy'])->name('privacy');
