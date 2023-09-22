@@ -15,8 +15,6 @@ class DashboardController extends Controller
     {
         // event(new FreezeBalanceVerification(auth()->user()->id));
 
-        // return auth()->user()->indirectReferralsLevel1;
-
         return view('user.dashboard.index');
     }
 

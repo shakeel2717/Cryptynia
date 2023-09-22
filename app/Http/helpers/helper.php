@@ -116,7 +116,7 @@ function myDirectBusiness($user_id)
     $refers = User::where('refer', $user->username)->get();
     $directBusiness = 0;
     foreach ($refers as $refer) {
-        $directBusiness = $refer->userPlans()->sum('amount');
+        $directBusiness += $refer->userPlans()->sum('amount');
     }
     return $directBusiness;
 }

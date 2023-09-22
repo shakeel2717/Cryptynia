@@ -41,11 +41,12 @@ class CheckRewardCommand extends Command
                 info("not Eligible For Reward");
             }
 
-            info("Eligible For Reward" . $user->fname);
+            info("Eligible For Reward" . $user->username);
             $rewards = Reward::get();
             $currentRewardRequried = 0;
             foreach ($rewards as $reward) {
                 $currentRewardRequried += $reward->business;
+                info("Current Reward: " . $currentRewardRequried);
                 if (myDirectBusiness($user->id) < $currentRewardRequried) {
                     info("Reward not Achieved" . myDirectBusiness($user->id) . " " . $reward->business);
                     goto ThisUserEndLoop;
