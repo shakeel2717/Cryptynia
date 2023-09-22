@@ -4,6 +4,7 @@ namespace App\Http\Livewire\admin;
 
 use App\Mail\WithdrawComplete;
 use App\Models\Withdraw;
+use CoinpaymentsAPI;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Mail;
@@ -227,33 +228,55 @@ final class AllWithdrawals extends PowerGridComponent
         $this->dispatchBrowserEvent('deleted', ['status' => 'Withdrawal Deleted Successfully']);
     }
 
-
     public function approve($id)
     {
-        $this->dispatchBrowserEvent('txId', ['id' => $id['id']]);
-    }
-
-
-    public function confirmedapprove($id)
-    {
         $withdraw = Withdraw::find($id['id']);
-        $withdraw->txId = $id['txId'];
-        $withdraw->status = true;
-        $withdraw->save();
+        
+        if (site_option('auto_withdrawal')) {
+            $private_key = env('PRIKEY');
+            $public_key = env('PUBKEY');
+            $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
 
-        // approving transaction
-        foreach ($withdraw->transactions as $transaction) {
-            $transaction->status = true;
-            $transaction->reference = $transaction->reference . " & txId: " . $id['txId'];
-            $transaction->save();
+            $withdrawalParams = [
+                'amount' => $withdraw->amount,
+                'currency' => $withdraw->method,
+                'add_tx_fee' => 0,
+                'address' => $withdraw->wallet,
+                'ipn_url' => env('IPN_URL'),
+                'auto_confirm' => 0,
+                'note' => 'Withdrawal Request for user: ' . auth()->user()->username,
+            ];
+
+            try {
+                $withdrawalResult = $cps_api->CreateWithdrawal($withdrawalParams);
+                info($withdrawalResult);
+
+                if ($withdrawalResult['error'] == 'ok') {
+                    $withdrawalId = $withdrawalResult['result']['id'];
+                    $withdraw->txId = $withdrawalId;
+                    $withdraw->status = true;
+                    $withdraw->save();
+
+                    // approving transaction
+                    foreach ($withdraw->transactions as $transaction) {
+                        $transaction->status = true;
+                        $transaction->reference = $transaction->reference . " & txId: " . $withdrawalId;
+                        $transaction->save();
+                    }
+
+                    if (!env('APP_DEBUG')) {
+                        // sending email to this user
+                        Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
+                    }
+                } else {
+                    info("Withdrawal request failed: {$withdrawalResult['error']}");
+                    $this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request failed: {$withdrawalResult['error']}"]);
+                }
+            } catch (\Exception $e) {
+                info("Error: " . $e->getMessage());
+                $this->dispatchBrowserEvent('deleted', ['status' => "Error: " . $e->getMessage()]);
+            }
         }
-
-        if (!env('APP_DEBUG')) {
-            // sending email to this user
-            Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
-        }
-
-        $this->dispatchBrowserEvent('deleted', ['status' => 'Withdrawals Approved Successfully']);
     }
 
 
