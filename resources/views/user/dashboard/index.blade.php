@@ -118,6 +118,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center">
                             <img src="{{ asset('assets/team.png') }}" alt="Teams">
+                            <h4>My Sponser: {{ auth()->user()->refer }}</h4>
                         </div>
                         <div class="col-md-10">
                             <div class="form-group">
