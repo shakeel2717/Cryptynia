@@ -120,6 +120,12 @@
             <span class="link-title">Rewards Statement</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('user.team_ranks.index') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Teams Reward Statement</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Account Settings</li>
     <li class="nav-item">
         <a href="{{ route('user.profile.index') }}" class="nav-link">

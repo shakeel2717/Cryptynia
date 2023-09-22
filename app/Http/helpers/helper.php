@@ -3,6 +3,7 @@
 use App\Models\Option;
 use App\Models\Plan;
 use App\Models\Reward;
+use App\Models\TeamReward;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserPlan;
@@ -119,6 +120,22 @@ function myDirectBusiness($user_id)
         $directBusiness += $refer->userPlans()->sum('amount');
     }
     return $directBusiness;
+}
+
+function myTeamBusiness($user_id)
+{
+    $user = User::find($user_id);
+    $teamBusiness = 0;
+    $calculateTeamBusiness = function ($user) use (&$calculateTeamBusiness, &$teamBusiness) {
+        foreach ($user->directReferrals as $directReferral) {
+            $teamBusiness += $directReferral->userPlans()->sum('amount');
+            $calculateTeamBusiness($directReferral);
+        }
+    };
+
+    $calculateTeamBusiness($user);
+
+    return $teamBusiness;
 }
 
 function leftReferrals($user_id)
@@ -285,6 +302,18 @@ function getBinaryCommission($user_id)
 function checkRewardStatus($reward_id, $user_id)
 {
     $reward = Reward::find($reward_id);
+    $transactions = Transaction::where('user_id', $user_id)->where('reference', $reward->name . ' Reward Achieved')->count();
+    if ($transactions > 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+function checkTeamRewardStatus($reward_id, $user_id)
+{
+    $reward = TeamReward::find($reward_id);
     $transactions = Transaction::where('user_id', $user_id)->where('reference', $reward->name . ' Reward Achieved')->count();
     if ($transactions > 0) {
         return 1;

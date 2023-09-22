@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\TeamReward;
+use App\Models\User;
+use Illuminate\Console\Command;
+
+class CheckTeamReward extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'check:team-reward';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Checking All Users Team Rewards';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        // getting all active users
+        $users = User::where('status', 'active')->get();
+        foreach ($users as $user) {
+            // checking if this user have plan
+            if ($user->userPlan->amount < 1) {
+                info("User not have amount invested");
+            }
+
+            // getting this user matching business
+            $myTeamBusiness = myTeamBusiness($user->id);
+            if ($myTeamBusiness < 1) {
+                info("not Eligible For Reward");
+            }
+
+            info("Eligible For Reward" . $user->username);
+            $rewards = TeamReward::get();
+            $currentRewardRequried = 0;
+            foreach ($rewards as $reward) {
+                $currentRewardRequried += $reward->business;
+                info("Current Reward: " . $currentRewardRequried);
+                if (myTeamBusiness($user->id) < $currentRewardRequried) {
+                    info("Reward not Achieved" . myTeamBusiness($user->id) . " " . $reward->business);
+                    goto ThisUserEndLoop;
+                }
+
+                info("Reward Achieved" . $reward->name);
+
+                // delivering Profit to this User
+                $transaction = $user->transactions()->firstOrCreate([
+                    'type' => 'Team Reward Achieved',
+                    'sum' => true,
+                    'status' => true,
+                    'reference' => $reward->name . ' Reward Achieved',
+                    'amount' =>  $reward->reward,
+                    'reward_id' =>  $reward->id,
+                ]);
+
+                info("Reward Transaction Added");
+            }
+
+
+            ThisUserEndLoop:
+        }
+    }
+}

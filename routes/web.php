@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RanksController;
+use App\Http\Controllers\TeamRewardController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\user\DepositController;
 use App\Http\Controllers\user\KycController;
@@ -29,6 +30,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user', 'verified')->g
     Route::resource('tree', TreeController::class);
     Route::resource('withdraw', WithdrawController::class);
     Route::resource('ranks', RanksController::class);
+    Route::resource('team_ranks', TeamRewardController::class);
     Route::post('/profile/password', [UserProfileController::class, 'password'])->name('profile.password');
     Route::resource('profile', UserProfileController::class);
     Route::resource('kyc', KycController::class);

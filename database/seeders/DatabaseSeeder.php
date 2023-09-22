@@ -9,6 +9,7 @@ use App\Models\Plan;
 use App\Models\PlanProfit;
 use App\Models\Post;
 use App\Models\Reward;
+use App\Models\TeamReward;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Seeder;
@@ -350,6 +351,36 @@ class DatabaseSeeder extends Seeder
         $reward->name = "APEX";
         $reward->business = 30000;
         $reward->reward = 3000;
+        $reward->save();
+
+        $reward = new TeamReward();
+        $reward->name = "Innovate";
+        $reward->business = 10000;
+        $reward->reward = 100;
+        $reward->save();
+
+        $reward = new TeamReward();
+        $reward->name = "Collaborator";
+        $reward->business = 30000;
+        $reward->reward = 300;
+        $reward->save();
+
+        $reward = new TeamReward();
+        $reward->name = "Excellence";
+        $reward->business = 50000;
+        $reward->reward = 1000;
+        $reward->save();
+
+        $reward = new TeamReward();
+        $reward->name = "Leadership";
+        $reward->business = 100000;
+        $reward->reward = 3000;
+        $reward->save();
+
+        $reward = new TeamReward();
+        $reward->name = "Harmony";
+        $reward->business = 200000;
+        $reward->reward = 6000;
         $reward->save();
     }
 }

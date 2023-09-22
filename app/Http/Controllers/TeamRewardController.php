@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\user;
+namespace App\Http\Controllers;
 
-use App\Events\FreezeBalanceVerification;
-use App\Http\Controllers\Controller;
+use App\Models\TeamReward;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class TeamRewardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // event(new FreezeBalanceVerification(auth()->user()->id));
-        return view('user.dashboard.index');
+        $rewards = TeamReward::get();
+        return view('user.team_ranks.index',compact('rewards'));
     }
 
     /**
@@ -36,7 +35,7 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(TeamReward $teamReward)
     {
         //
     }
@@ -44,7 +43,7 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(TeamReward $teamReward)
     {
         //
     }
@@ -52,7 +51,7 @@ class DashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, TeamReward $teamReward)
     {
         //
     }
@@ -60,7 +59,7 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(TeamReward $teamReward)
     {
         //
     }
