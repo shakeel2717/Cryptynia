@@ -286,4 +286,78 @@
             </div>
         </div>
     </section>
+
+
+    <section class="why-choose-two-section">
+        <div class="container">
+            <div class="thm-section-title text-center">
+                <h4 class="sub-title-shape-left section_title-subheading">Download Our Android Application</h4>
+                <h2>For Fast intraction with your Account <br> Download Android App</h2>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="why-choose-two-image">
+                        <img src="/assets/app.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="bg-dark p-4">
+                        <div class="">
+                            <div class="text-white">
+                                <h3 class="mb-4 text-white">Why Use Application?</h3>
+                                <p>Introducing our Android application – your gateway to a seamless and efficient investment
+                                    experience. With our mobile app, you can take control of your financial journey like
+                                    never before. Whether you're a seasoned investor or just starting, our app is designed
+                                    to enhance your user experience.
+                                </p>
+                                <p>
+                                    Downloadable from the Play Store, our Android app empowers you to manage your account
+                                    with ease, speed, and convenience. Experience lightning-fast access to your investment
+                                    portfolio, real-time market updates, and the ability to execute trades from the palm of
+                                    your hand.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="progress-levels text-white">
+                            <h5 class="text-white">Enjoy the following benefits with our Android app:</h5>
+                            <br>
+                            <ul>
+                                <li>
+                                    <b>Effortless Account Management:</b> <br>
+                                    <p>View your investment details, track performance, and monitor your earnings
+                                        effortlessly.</p>
+                                </li>
+                                <li>
+                                    <b>Real-Time Market Insights:</b> <br>
+                                    <p>Stay ahead of the game with live market data and comprehensive analytics, helping you
+                                        make informed decisions.</p>
+                                </li>
+                                <li>
+                                    <b>Instant Trade Execution: </b> <br>
+                                    <p>Execute trades swiftly and securely, ensuring you never miss an opportunity in the
+                                        dynamic world of finance.</p>
+                                </li>
+                                <li>
+                                    <b>Secure Access:</b> <br>
+                                    <p>Our app is designed with robust security features to safeguard your financial
+                                        information and transactions.</p>
+                                </li>
+                                <li>
+                                    <b>User-Friendly Interface: </b> <br>
+                                    <p>Navigate through your investments with a user-friendly interface that caters to both
+                                        beginners and experienced investors.</p>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="download-area">
+                                <a href="https://play.google.com/store/apps/details?id=com.cryptynia.app">
+                                    <img src="/assets/playstore.png" alt="playstore download button" width="250">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
