@@ -110,4 +110,117 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border border-5">
+                <div class="card-body">
+                    <h2 class="card-title">Refer Your Friends and Family and earn Commission</h2>
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <img src="{{ asset('assets/team.png') }}" alt="Teams">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="referlink" class="form-control"
+                                        placeholder="Recipient's username"
+                                        value="{{ route('register', ['refer' => auth()->user()->username]) }}">
+                                    <button class="btn btn-outline-secondary" onclick="copyToClipboard('referlink')"
+                                        type="button" id="button-addon2">Copy Refer
+                                        Link</button>
+                                </div>
+                                <div class="my-2">
+                                    <p>Sharing is caring, and at CRYPTYNIA, we believe in rewarding your enthusiasm for our
+                                        platform. By referring friends and family, you not only introduce them to a world of
+                                        investment opportunities but also have the chance to earn more commissions. It's
+                                        easy to get started – simply click the 'Copy' button to grab your unique referral
+                                        link and share it with your network. Every successful referral means more potential
+                                        for growth and additional income in your pocket. Join us in spreading the word about
+                                        CRYPTYNIA and let's grow together while you earn more with every referral</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card border">
+                                        <div class="card-body">
+                                            <h2 class="card-title">Total Direct Referrals</h2>
+                                            <h2 class="text-end">{{ auth()->user()->directReferrals->count() }}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card border">
+                                        <div class="card-body">
+                                            <h2 class="card-title">In-Direct Level 1</h2>
+                                            @php
+                                                $indirectLevel = 0;
+                                            @endphp
+                                            @foreach (auth()->user()->indirectReferralsLevel1 as $directLevel)
+                                                @php
+                                                    $indirectLevel += $directLevel->directReferrals->count();
+                                                @endphp
+                                            @endforeach
+                                            <h2 class="text-end">{{ $indirectLevel }}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card border">
+                                        <div class="card-body">
+                                            <h2 class="card-title">In-Direct Level 2</h2>
+                                            @php
+                                                $indirectLevel = 0;
+                                            @endphp
+                                            @foreach (auth()->user()->indirectReferralsLevel1 as $directLevel)
+                                                @foreach ($directLevel->indirectReferralsLevel1 as $directLevel1)
+                                                    @php
+                                                        $indirectLevel += $directLevel1->directReferrals->count();
+                                                    @endphp
+                                                @endforeach
+                                            @endforeach
+                                            <h2 class="text-end">{{ $indirectLevel }}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card border">
+                                        <div class="card-body">
+                                            <h2 class="card-title">In-Direct Level 3</h2>
+                                            @php
+                                                $indirectLevel = 0;
+                                            @endphp
+                                            @foreach (auth()->user()->indirectReferralsLevel1 as $directLevel)
+                                                @foreach ($directLevel->indirectReferralsLevel1 as $directLevel1)
+                                                    @foreach ($directLevel1->indirectReferralsLevel1 as $directLevel2)
+                                                        @php
+                                                            $indirectLevel += $directLevel2->directReferrals->count();
+                                                        @endphp
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                            <h2 class="text-end">{{ $indirectLevel }}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('footer')
+    <script>
+        function copyToClipboard(elementId) {
+            let element = document.getElementById(elementId);
+            // copy this to clipboard
+            element.select();
+            document.execCommand("copy");
+        }
+    </script>
 @endsection

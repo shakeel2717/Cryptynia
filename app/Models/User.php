@@ -129,4 +129,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class, 'seller_id')->where('status', false);
     }
+
+    public function directReferrals()
+    {
+        return $this->hasMany(User::class, 'refer', 'username');
+    }
+
+    public function indirectReferralsLevel1()
+    {
+        return $this->hasMany(User::class, 'refer', 'username')->with('directReferrals');
+    }
 }

@@ -182,7 +182,7 @@
                                 Deposit Funds
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('user.deposit.create') }}">Deposit via Gateway</a>
+                                <a class="dropdown-item" href="{{ route('user.deposit.create') }}">Deposit via Crypto</a>
                                 <a class="dropdown-item" href="{{ route('user.exchange.index') }}">Deposit via P2P</a>
                             </div>
                         </div>

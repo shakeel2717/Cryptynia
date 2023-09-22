@@ -43,11 +43,78 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
         $user = new User();
-        $user->name = "Basharat Ali";
-        $user->username = "basharat604";
-        $user->email = "basharat@gmail.com";
-        $user->mobile = "03001212130";
+        $user->name = "Test 1";
+        $user->username = "test1";
+        $user->email = "test1@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
         $user->country = "Pakistan";
+        $user->refer = "shakeel2717";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 2";
+        $user->username = "test2";
+        $user->email = "test2@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "shakeel2717";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 3";
+        $user->username = "test3";
+        $user->email = "test3@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "test1";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 4";
+        $user->username = "test4";
+        $user->email = "test4@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "test1";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 5";
+        $user->username = "test5";
+        $user->email = "test5@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "test3";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 6";
+        $user->username = "test6";
+        $user->email = "test6@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "test3";
+        $user->email_verified_at = now();
+        $user->password = bcrypt('asdfasdf');
+        $user->save();
+
+        $user = new User();
+        $user->name = "Test 7";
+        $user->username = "test7";
+        $user->email = "test7@gmail.com";
+        $user->mobile = rand(0000000, 9999999);
+        $user->country = "Pakistan";
+        $user->refer = "test4";
         $user->email_verified_at = now();
         $user->password = bcrypt('asdfasdf');
         $user->save();
