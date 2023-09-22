@@ -67,7 +67,7 @@ class DeliverDirectCommission
                 // info("User have valid refer");
 
                 // finding the refer
-                $indirect1 = User::where('username', $user->refer)->first();
+                $indirect1 = User::where('username', $sponser->refer)->first();
                 if (!$indirect1) {
                     goto EndThisListener;
                     die();
@@ -102,7 +102,7 @@ class DeliverDirectCommission
                     // info("User have valid refer");
 
                     // finding the refer
-                    $indirect2 = User::where('username', $user->refer)->first();
+                    $indirect2 = User::where('username', $indirect1->refer)->first();
                     if (!$indirect2) {
                         goto EndThisListener;
                         die();
@@ -137,7 +137,7 @@ class DeliverDirectCommission
                         // info("User have valid refer");
 
                         // finding the refer
-                        $indirect3 = User::where('username', $user->refer)->first();
+                        $indirect3 = User::where('username', $indirect2->refer)->first();
                         if (!$indirect3) {
                             goto EndThisListener;
                             die();

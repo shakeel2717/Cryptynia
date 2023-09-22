@@ -23,12 +23,11 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   KEY `accounts_user_id_foreign` (`user_id`),
   CONSTRAINT `accounts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,2,'Allied Bank','21316544978946','Shakeel Ahmad','2023-09-21 10:35:54','2023-09-21 10:35:54');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `coin_payments`;
@@ -89,18 +88,18 @@ CREATE TABLE `exchanges` (
   `user_id` bigint(20) unsigned NOT NULL,
   `amount` double NOT NULL,
   `price` double NOT NULL,
+  `currency` varchar(255) NOT NULL DEFAULT 'PKR',
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `exchanges_user_id_foreign` (`user_id`),
   CONSTRAINT `exchanges_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `exchanges` WRITE;
 /*!40000 ALTER TABLE `exchanges` DISABLE KEYS */;
-INSERT INTO `exchanges` VALUES (1,2,100,250,0,'2023-09-21 10:36:00','2023-09-21 10:36:39');
 /*!40000 ALTER TABLE `exchanges` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -191,12 +190,12 @@ CREATE TABLE `options` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `options` WRITE;
 /*!40000 ALTER TABLE `options` DISABLE KEYS */;
-INSERT INTO `options` VALUES (1,'min_deposit','10','2023-09-21 10:35:32','2023-09-21 10:35:32'),(2,'withdraw_fees','5','2023-09-21 10:35:32','2023-09-21 10:35:32'),(3,'direct_commission','5','2023-09-21 10:35:32','2023-09-21 10:35:32'),(4,'in_direct_commission_1','2','2023-09-21 10:35:32','2023-09-21 10:35:32'),(5,'in_direct_commission_2','1','2023-09-21 10:35:32','2023-09-21 10:35:32'),(6,'in_direct_commission_3','0.5','2023-09-21 10:35:32','2023-09-21 10:35:32'),(7,'deposit_bonus','10','2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `options` VALUES (1,'min_deposit','10','2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,'min_withdraw','10','2023-09-22 14:42:20','2023-09-22 14:42:20'),(3,'withdraw_fees','5','2023-09-22 14:42:20','2023-09-22 14:42:20'),(4,'auto_withdrawal','1','2023-09-22 14:42:20','2023-09-22 14:42:20'),(5,'direct_commission','5','2023-09-22 14:42:20','2023-09-22 14:42:20'),(6,'in_direct_commission_1','2','2023-09-22 14:42:20','2023-09-22 14:42:20'),(7,'in_direct_commission_2','1','2023-09-22 14:42:20','2023-09-22 14:42:20'),(8,'in_direct_commission_3','0.5','2023-09-22 14:42:20','2023-09-22 14:42:20'),(9,'deposit_bonus','10','2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `orders`;
@@ -218,12 +217,11 @@ CREATE TABLE `orders` (
   KEY `orders_exchange_id_foreign` (`exchange_id`),
   CONSTRAINT `orders_exchange_id_foreign` FOREIGN KEY (`exchange_id`) REFERENCES `exchanges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,3,2,1,100,25000,'basharat60416952925999.jpg',0,'2023-09-21 10:36:39','2023-09-21 10:36:39');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_reset_tokens`;
@@ -283,7 +281,7 @@ CREATE TABLE `plan_profits` (
 
 LOCK TABLES `plan_profits` WRITE;
 /*!40000 ALTER TABLE `plan_profits` DISABLE KEYS */;
-INSERT INTO `plan_profits` VALUES (1,1,1,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(2,2,1,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(3,3,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(4,4,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(5,5,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(6,6,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(7,7,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(8,8,1,'2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `plan_profits` VALUES (1,1,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,2,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(3,3,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(4,4,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(5,5,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(6,6,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(7,7,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(8,8,1,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `plan_profits` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `plans`;
@@ -306,7 +304,7 @@ CREATE TABLE `plans` (
 
 LOCK TABLES `plans` WRITE;
 /*!40000 ALTER TABLE `plans` DISABLE KEYS */;
-INSERT INTO `plans` VALUES (1,'Plan 1',50,1,1.5,10,90,1,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(2,'Plan 2',100,1,1.5,20,90,1,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(3,'Plan 3',300,1,1.5,30,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(4,'Plan 4',500,1,1.5,50,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(5,'Plan 5',1000,1,1.5,50,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(6,'Plan 6',3000,1,1.5,50,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(7,'Plan 7',5000,1,1.5,50,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(8,'Plan 8',10000,1,1.5,50,90,1,'2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `plans` VALUES (1,'Plan 1',50,1,1.5,10,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,'Plan 2',100,1,1.5,20,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(3,'Plan 3',300,1,1.5,30,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(4,'Plan 4',500,1,1.5,50,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(5,'Plan 5',1000,1,1.5,50,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(6,'Plan 6',3000,1,1.5,50,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(7,'Plan 7',5000,1,1.5,50,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(8,'Plan 8',10000,1,1.5,50,90,1,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `plans` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `posts`;
@@ -325,7 +323,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'The Basics of Forex Trading: A Beginner\'s Guide','In this introductory blog post, we cover the fundamental concepts of forex trading, making it an ideal starting point for newcomers to the world of currency trading. From understanding forex markets and currency pairs to learning how to read forex quotes and execute trades, this guide will provide beginners with the essential knowledge and terminology to embark on their forex trading journey confidently.',NULL,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(2,'Mastering Technical Analysis for Forex Trading','Technical analysis is a powerful tool in the arsenal of successful forex traders. This blog post delves into the world of technical analysis, exploring popular indicators, chart patterns, and price action techniques that help identify trends, entry and exit points, and potential market reversals. Whether you\'re a seasoned trader or a beginner, this comprehensive guide will equip you with the skills to interpret charts and make well-informed trading decisions based on technical insights.',NULL,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(3,'Risk Management: Safeguarding Your Forex Investments','Risk management is the backbone of profitable forex trading. This post emphasizes the significance of implementing a robust risk management strategy to protect your capital and maintain steady growth. We delve into position sizing, setting stop-loss orders, and understanding leverage, empowering traders to minimize potential losses and optimize risk-to-reward ratios. Learn how to stay disciplined, protect your investments, and preserve your trading account for sustained success in the dynamic forex market.',NULL,'2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `posts` VALUES (1,'The Basics of Forex Trading: A Beginner\'s Guide','In this introductory blog post, we cover the fundamental concepts of forex trading, making it an ideal starting point for newcomers to the world of currency trading. From understanding forex markets and currency pairs to learning how to read forex quotes and execute trades, this guide will provide beginners with the essential knowledge and terminology to embark on their forex trading journey confidently.',NULL,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,'Mastering Technical Analysis for Forex Trading','Technical analysis is a powerful tool in the arsenal of successful forex traders. This blog post delves into the world of technical analysis, exploring popular indicators, chart patterns, and price action techniques that help identify trends, entry and exit points, and potential market reversals. Whether you\'re a seasoned trader or a beginner, this comprehensive guide will equip you with the skills to interpret charts and make well-informed trading decisions based on technical insights.',NULL,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(3,'Risk Management: Safeguarding Your Forex Investments','Risk management is the backbone of profitable forex trading. This post emphasizes the significance of implementing a robust risk management strategy to protect your capital and maintain steady growth. We delve into position sizing, setting stop-loss orders, and understanding leverage, empowering traders to minimize potential losses and optimize risk-to-reward ratios. Learn how to stay disciplined, protect your investments, and preserve your trading account for sustained success in the dynamic forex market.',NULL,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `rewards`;
@@ -344,7 +342,7 @@ CREATE TABLE `rewards` (
 
 LOCK TABLES `rewards` WRITE;
 /*!40000 ALTER TABLE `rewards` DISABLE KEYS */;
-INSERT INTO `rewards` VALUES (1,'PROMINENCE',1000,50,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(2,'EMPYREAN',3000,150,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(3,'PINNACLE',5000,300,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(4,'ELITE',10000,700,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(5,'APEX',30000,3000,'2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `rewards` VALUES (1,'PROMINENCE',1000,50,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,'EMPYREAN',3000,150,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(3,'PINNACLE',5000,300,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(4,'ELITE',10000,700,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(5,'APEX',30000,3000,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `rewards` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `tids`;
@@ -403,12 +401,12 @@ CREATE TABLE `transactions` (
   CONSTRAINT `transactions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `transactions_user_plan_id_foreign` FOREIGN KEY (`user_plan_id`) REFERENCES `user_plans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `transactions_withdraw_id_foreign` FOREIGN KEY (`withdraw_id`) REFERENCES `withdraws` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,2,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-21 10:35:42','2023-09-21 10:35:42'),(2,2,'P2P Sell',100,0,'USDT Sell P2P @ 250.00',0,NULL,NULL,NULL,1,'2023-09-21 10:36:00','2023-09-21 10:36:00');
+INSERT INTO `transactions` VALUES (1,2,'Deposit',1000,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:43:01','2023-09-22 14:43:01'),(2,2,'Plan Active',1000,1,'Plan: Plan 5 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:43:17','2023-09-22 14:43:17'),(3,3,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:44:40','2023-09-22 14:44:40'),(4,3,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:44:47','2023-09-22 14:44:47'),(5,2,'Direct Commission',5,1,'Direct Commission from: test1',1,NULL,1,NULL,NULL,'2023-09-22 14:44:47','2023-09-22 14:44:47'),(6,4,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:45:13','2023-09-22 14:45:13'),(7,4,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:45:18','2023-09-22 14:45:18'),(8,2,'Direct Commission',5,1,'Direct Commission from: test2',1,NULL,1,NULL,NULL,'2023-09-22 14:45:18','2023-09-22 14:45:18'),(9,5,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:45:40','2023-09-22 14:45:40'),(10,5,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:48:13','2023-09-22 14:48:13'),(11,3,'Direct Commission',5,1,'Direct Commission from: test3',1,NULL,2,NULL,NULL,'2023-09-22 14:48:13','2023-09-22 14:48:13'),(12,2,'In-Direct Commission L01',2,1,'In-Direct Commission from: test3',1,NULL,NULL,NULL,NULL,'2023-09-22 14:48:13','2023-09-22 14:48:13'),(13,6,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:48:39','2023-09-22 14:48:39'),(14,6,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:48:42','2023-09-22 14:48:42'),(15,3,'Direct Commission',5,1,'Direct Commission from: test4',1,NULL,2,NULL,NULL,'2023-09-22 14:48:42','2023-09-22 14:48:42'),(16,2,'In-Direct Commission L01',2,1,'In-Direct Commission from: test4',1,NULL,NULL,NULL,NULL,'2023-09-22 14:48:42','2023-09-22 14:48:42'),(17,7,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:49:11','2023-09-22 14:49:11'),(18,7,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:49:16','2023-09-22 14:49:16'),(19,5,'Direct Commission',5,1,'Direct Commission from: test5',1,NULL,4,NULL,NULL,'2023-09-22 14:49:16','2023-09-22 14:49:16'),(20,3,'In-Direct Commission L01',2,1,'In-Direct Commission from: test5',1,NULL,NULL,NULL,NULL,'2023-09-22 14:49:16','2023-09-22 14:49:16'),(21,2,'In-Direct Commission L02',1,1,'In-Direct Commission from: test5',1,NULL,NULL,NULL,NULL,'2023-09-22 14:49:16','2023-09-22 14:49:16'),(22,8,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:49:47','2023-09-22 14:49:47'),(23,8,'Plan Active',100,1,'Plan: Plan 2 Activated',0,NULL,NULL,NULL,NULL,'2023-09-22 14:50:02','2023-09-22 14:50:02'),(24,5,'Direct Commission',5,1,'Direct Commission from: test6',1,NULL,4,NULL,NULL,'2023-09-22 14:50:02','2023-09-22 14:50:02'),(25,3,'In-Direct Commission L01',2,1,'In-Direct Commission from: test6',1,NULL,NULL,NULL,NULL,'2023-09-22 14:50:02','2023-09-22 14:50:02'),(26,2,'In-Direct Commission L02',1,1,'In-Direct Commission from: test6',1,NULL,NULL,NULL,NULL,'2023-09-22 14:50:02','2023-09-22 14:50:02'),(27,9,'Deposit',100,1,'Admin Action',1,NULL,NULL,NULL,NULL,'2023-09-22 14:50:17','2023-09-22 14:50:17');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `user_plans`;
@@ -427,11 +425,12 @@ CREATE TABLE `user_plans` (
   KEY `user_plans_plan_id_foreign` (`plan_id`),
   CONSTRAINT `user_plans_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_plans_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `user_plans` WRITE;
 /*!40000 ALTER TABLE `user_plans` DISABLE KEYS */;
+INSERT INTO `user_plans` VALUES (1,2,5,1000,'active','2023-09-22 14:43:17','2023-09-22 14:43:17'),(2,3,2,100,'active','2023-09-22 14:44:47','2023-09-22 14:44:47'),(3,4,2,100,'active','2023-09-22 14:45:18','2023-09-22 14:45:18'),(4,5,2,100,'active','2023-09-22 14:48:13','2023-09-22 14:48:13'),(5,6,2,100,'active','2023-09-22 14:48:41','2023-09-22 14:48:41'),(6,7,2,100,'active','2023-09-22 14:49:16','2023-09-22 14:49:16'),(7,8,2,100,'active','2023-09-22 14:50:02','2023-09-22 14:50:02');
 /*!40000 ALTER TABLE `user_plans` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -458,12 +457,12 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_mobile_unique` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin','admin@test.com','03001212123','Pakistan','$2y$10$dbCxyUuqpbzcsIckLAywAetssT76oKnD6FxYAkh7zAjXbizwhx26m','default','pending','2023-09-21 10:35:31','admin',0,1,NULL,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(2,'Shakeel Ahmad','shakeel2717','shakeel2717@gmail.com','03001212133','Pakistan','$2y$10$Qim67.pxJjwEWZD5VOcwaek3ZEJmYOIXOn/QCogZS4KoZtOZwDVw2','default','pending','2023-09-21 10:35:31','user',0,1,NULL,'2023-09-21 10:35:31','2023-09-21 10:35:31'),(3,'Basharat Ali','basharat604','basharat@gmail.com','03001212130','Pakistan','$2y$10$kjHlrEALRdmnORCJmKUVHuMq3vohOBt9TTu4uI/obgOr2Z.iZ1QaC','default','pending','2023-09-21 10:35:31','user',0,1,NULL,'2023-09-21 10:35:31','2023-09-21 10:35:31');
+INSERT INTO `users` VALUES (1,'Administrator','admin','admin@test.com','03001212123','Pakistan','$2y$10$ounLoNTAsx53qJ9SFi2fJ.hUSfAsUMJt3/Irg.isguVL2se3Cwanm','default','pending','2023-09-22 14:42:19','admin',0,1,NULL,'2023-09-22 14:42:19','2023-09-22 14:42:19'),(2,'Shakeel Ahmad','shakeel2717','shakeel2717@gmail.com','03001212133','Pakistan','$2y$10$aH35xWkjzWg1bRZM0P/kHe9gR5BgOmhlgS5wHQxCKVN5T94WRJIc2','default','active','2023-09-22 14:42:19','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:43:17'),(3,'Test 1','test1','test1@gmail.com','6741130','Pakistan','$2y$10$lgLi.R9bzqQMueVYwP2jj.Ix1nguDNhAfGVOVdyllT7XGmfQLYx3.','shakeel2717','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:44:47'),(4,'Test 2','test2','test2@gmail.com','3892532','Pakistan','$2y$10$1dVkZaqXBmnJGMVU029sLenirKdg2eB0Mxt91vledtKLuNDz.gia2','shakeel2717','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:45:18'),(5,'Test 3','test3','test3@gmail.com','8728042','Pakistan','$2y$10$n0Lm5AFvP3KzNStDmqWZtuORQy4v5wI4ZZY5YAurUjDlvyi3l0Ury','test1','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:48:13'),(6,'Test 4','test4','test4@gmail.com','7628027','Pakistan','$2y$10$z/83h.kQplgCSl.oeH5mu.Qcl/GvR3eKcF9m0BlWAW9XBmYNG2pCq','test1','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:48:42'),(7,'Test 5','test5','test5@gmail.com','6651990','Pakistan','$2y$10$xl1YbFGd9w.AW1BDY4a5hetQYNLVXqDPsbx6NVeqhjf7LLq6iPVDi','test3','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:49:16'),(8,'Test 6','test6','test6@gmail.com','5485408','Pakistan','$2y$10$JsI/AYVSwWu7o5A1ZAWZseeHnz3/begyGEWmouLEAfw.e0Khh3Rrm','test3','active','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:50:02'),(9,'Test 7','test7','test7@gmail.com','9673342','Pakistan','$2y$10$F2d7lleRL2dkszrc0hOeNOTeYiggpWE139uMbFSz8H16OHag2mYHa','test6','pending','2023-09-22 14:42:20','user',0,1,NULL,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `wallets`;
@@ -486,7 +485,7 @@ CREATE TABLE `wallets` (
 
 LOCK TABLES `wallets` WRITE;
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
-INSERT INTO `wallets` VALUES (1,'USDT','TRX','Tether','USDT.TRC20','usdt.png','0',1,'2023-09-21 10:35:32','2023-09-21 10:35:32'),(2,'ETH','ETH','Ethereum','ETH','ethereum.png','0',1,'2023-09-21 10:35:32','2023-09-21 10:35:32');
+INSERT INTO `wallets` VALUES (1,'USDT','TRX','Tether','USDT.TRC20','usdt.png','0',1,'2023-09-22 14:42:20','2023-09-22 14:42:20'),(2,'ETH','ETH','Ethereum','ETH','ethereum.png','0',1,'2023-09-22 14:42:20','2023-09-22 14:42:20');
 /*!40000 ALTER TABLE `wallets` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `withdraws`;
