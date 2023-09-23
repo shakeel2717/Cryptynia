@@ -304,6 +304,37 @@ class DatabaseSeeder extends Seeder
         $option->save();
 
 
+        $option = new Option();
+        $option->key = 'social_facebook';
+        $option->value = 'https://facebook.com/';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'social_youtube';
+        $option->value = 'https://youtube.com/';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'social_tiktok';
+        $option->value = 'https://tiktok.com/';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'social_telegram';
+        $option->value = 'https://telegram.org/';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'social_instagram';
+        $option->value = 'https://www.instagram.com';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'social_twitter';
+        $option->value = 'https://www.twitter.com';
+        $option->save();
+
+
         $post = new Post();
         $post->title = 'The Basics of Forex Trading: A Beginner\'s Guide';
         $post->body = 'In this introductory blog post, we cover the fundamental concepts of forex trading, making it an ideal starting point for newcomers to the world of currency trading. From understanding forex markets and currency pairs to learning how to read forex quotes and execute trades, this guide will provide beginners with the essential knowledge and terminology to embark on their forex trading journey confidently.';

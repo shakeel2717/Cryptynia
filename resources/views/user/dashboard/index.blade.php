@@ -44,7 +44,7 @@
         ])
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card card-body mb-4">
                 <h2 class="card-title">Recent Transactions</h2>
                 @forelse (auth()->user()->transactions()->latest()->take(10)->get() as $transaction)
@@ -76,9 +76,7 @@
                 @endforelse
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card card-body mb-4">
                 <h2 class="card-title">All Active Packages</h2>
                 @forelse (auth()->user()->userPlans()->latest()->take(10)->get() as $plan)
@@ -102,7 +100,7 @@
                     <div class="card shadow-lg">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="text-success">NO Transaction Found</h4>
+                                <h4 class="text-success">NO Active Plan Found</h4>
                             </div>
                         </div>
                     </div>
@@ -110,6 +108,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="card border border-5">
