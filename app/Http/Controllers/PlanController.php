@@ -20,6 +20,11 @@ class PlanController extends Controller
         return view('user.plan.index', compact('plans'));
     }
 
+    public function active()
+    {
+        return view('user.plan.active');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

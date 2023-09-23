@@ -39,6 +39,12 @@
             <span class="link-title">Activate Plan</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('user.plan.active') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">My Plans</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Account Statement</li>
     <li class="nav-item">
         <a href="{{ route('user.history.all') }}" class="nav-link">

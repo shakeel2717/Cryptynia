@@ -26,6 +26,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user', 'verified')->g
     Route::post('/deposit/verify', [DepositController::class, 'verify'])->name('deposit.verify');
     Route::resource('deposit', DepositController::class);
     Route::post('/plan/networkcap', [PlanController::class, 'networkcap'])->name('plan.networkcap');
+    Route::get('/plan/active', [PlanController::class, 'active'])->name('plan.active');
     Route::resource('plan', PlanController::class);
     Route::resource('tree', TreeController::class);
     Route::resource('withdraw', WithdrawController::class);
