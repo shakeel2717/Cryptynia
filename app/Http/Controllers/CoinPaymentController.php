@@ -74,6 +74,18 @@ class CoinPaymentController extends Controller
                     'reference' => $txn_id,
                 ]);
                 info('CoinPayment Payment  Success');
+
+                // adding deposit bonus
+                if (site_option('deposit_bonus') > 0) {
+                    $bonusAmount = site_option('deposit_bonus') * $amount1 / 100;
+                    $bonus = $payment->user->transactions()->create([
+                        'type' => 'Deposit Bonus',
+                        'sum' => true,
+                        'amount' => $bonusAmount,
+                        'status' => true,
+                        'reference' => $txn_id,
+                    ]);
+                }
             } else {
                 info('CoinPayment Payment Already Inserted');
             }
@@ -94,6 +106,18 @@ class CoinPaymentController extends Controller
                     'reference' => $txn_id,
                 ]);
                 info('CoinPayment Payment Status 100 Success');
+                
+                // adding deposit bonus
+                if (site_option('deposit_bonus') > 0) {
+                    $bonusAmount = site_option('deposit_bonus') * $amount1 / 100;
+                    $bonus = $payment->user->transactions()->create([
+                        'type' => 'Deposit Bonus',
+                        'sum' => true,
+                        'amount' => $bonusAmount,
+                        'status' => true,
+                        'reference' => $txn_id,
+                    ]);
+                }
             } else {
                 info('CoinPayment Payment Already Inserted 100');
             }
