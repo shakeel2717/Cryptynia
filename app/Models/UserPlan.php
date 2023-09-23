@@ -31,4 +31,9 @@ class UserPlan extends Model
     {
         return $this->hasMany(Transaction::class)->where('sum', true);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

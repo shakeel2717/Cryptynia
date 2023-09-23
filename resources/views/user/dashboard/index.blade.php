@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="text-end">
                                     <h6 class="text-uppercase mb-2">{{ $plan->created_at->diffForHumans() }}</h6>
-                                    <h6 class="text-uppercase mb-0">{{ $plan->status ? 'Active' : 'Expired' }}
+                                    <h6 class="text-uppercase mb-0">Earned: ${{ number_format($plan->transactions()->sum('amount'), 2) }}
                                     </h6>
                                 </div>
                             </div>
