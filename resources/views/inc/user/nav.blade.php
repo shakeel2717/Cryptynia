@@ -123,7 +123,7 @@
     <li class="nav-item">
         <a href="{{ route('user.ranks.index') }}" class="nav-link">
             <i class="link-icon" data-feather="box"></i>
-            <span class="link-title">Rewards Statement</span>
+            <span class="link-title">Direct Rewards Statement</span>
         </a>
     </li>
     <li class="nav-item">
