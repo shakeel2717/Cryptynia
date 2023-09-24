@@ -48,6 +48,7 @@
     <script src="/assets/vendors/feather-icons/feather.min.js"></script>
     <script src="/assets/js/template.js"></script>
     <x-alert />
+    @yield('footer')
 </body>
 
 </html>

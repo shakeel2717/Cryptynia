@@ -318,20 +318,22 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="password">Password <span class="text-danger">*</span></label>
-                        <div class="form-group mb-3">
+                        <label for="passwordInput">Password <span class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
                             <input type="password" name="password" id="passwordInput" class="form-control"
-                                placeholder="Password" aria-label="Password" aria-describedby="togglePassword">
-
+                                placeholder="Enter Password">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="" data-feather="eye"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
-                        <div class="form-group mb-3">
+                        <div class="input-group mb-3">
                             <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control" placeholder="Password" aria-label="Password"
-                                aria-describedby="togglePassword2">
-
+                                class="form-control" placeholder="Enter Password">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword2"><i
+                                    class="" data-feather="eye"></i></button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -360,7 +362,6 @@
 @section('footer')
     <script>
         document.getElementById("togglePassword").addEventListener("click", function() {
-
             const passwordInput = document.getElementById("passwordInput");
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
