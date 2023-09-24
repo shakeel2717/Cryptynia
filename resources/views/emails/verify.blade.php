@@ -1,7 +1,7 @@
 <x-mail::message>
 # Email Verification Code
 
-Dear <b>{{auth()->user()->username}}</b>,
+Dear <b>User</b>,
 
 
 <b>Your OTP For Email Verification</b> <br>
