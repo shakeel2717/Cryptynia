@@ -191,7 +191,7 @@
                         <!--Main Service One Sec Single-->
                         <div class="main-service-one-sec-single wow fadeInUp" data-wow-delay="300ms">
                             <div class="main-service-one-sec-img">
-                                <img src="/landing/1.jpg" alt="">
+                                <img src="/landing/{{$loop->iteration}}.jpg" alt="">
                             </div>
                             <div class="main-service-one-sec-content">
                                 <div class="main-service-one-count">0{{ $post->id }}</div>
