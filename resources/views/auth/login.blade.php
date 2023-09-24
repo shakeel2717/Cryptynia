@@ -23,11 +23,14 @@
                                 <a href="{{ route('password.request') }}" class="text-muted mb-2">Forgot
                                     password?</a>
                             </div>
-                            <div class="">
-                                <label for="password">Password</label>
-                                <div class="form-group mb-3">
+                            <div class="mb-3">
+                                <label for="passwordInput">Password <span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
                                     <input type="password" name="password" id="passwordInput" class="form-control"
-                                        placeholder="Password" aria-label="Password" aria-describedby="togglePassword">
+                                        placeholder="Enter Password">
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="" data-feather="eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
