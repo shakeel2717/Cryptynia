@@ -129,6 +129,11 @@ final class Transactions extends PowerGridComponent
         return [
             // Column::make('Id', 'id'),
             // Column::make('User id', 'user_id'),
+
+            Column::make('Created at', 'created_at_formatted', 'created_at')
+                ->sortable(),
+
+
             Column::make('Amount', 'amount_format', 'amount')
                 ->sortable()
                 ->searchable(),
@@ -143,8 +148,7 @@ final class Transactions extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
+
         ];
     }
 
@@ -211,16 +215,19 @@ final class Transactions extends PowerGridComponent
      * @return array<int, RuleActions>
      */
 
-    /*
+
     public function actionRules(): array
     {
-       return [
+        return [
 
-           //Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($transaction) => $transaction->id === 1)
-                ->hide(),
+            //Hide button edit for ID 1
+            Rule::rows()
+                ->when(fn ($transaction) => $transaction->status == false)
+                ->setAttribute('class', 'text-danger'),
+
+            Rule::rows()
+                ->when(fn ($transaction) => $transaction->status == true)
+                ->setAttribute('class', 'text-success'),
         ];
     }
-    */
 }

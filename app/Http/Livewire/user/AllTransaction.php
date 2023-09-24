@@ -123,6 +123,10 @@ final class AllTransaction extends PowerGridComponent
     public function columns(): array
     {
         return [
+
+            Column::make('Created at', 'created_at_formatted', 'created_at')
+                ->sortable(),
+
             Column::make('Amount', 'amount_format','amount')
                 ->sortable()
                 ->searchable(),
@@ -135,8 +139,7 @@ final class AllTransaction extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
+            
 
         ];
     }
