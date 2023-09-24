@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('refer')->default('default');
             $table->string('status')->default('pending');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('token')->nullable();
             $table->string('role')->default('user');
             $table->boolean('networker')->default(false);
             $table->boolean('withdraw')->default(true);

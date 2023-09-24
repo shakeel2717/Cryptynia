@@ -40,6 +40,12 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::post('verify-email', [RegisteredUserController::class, 'verifyEmail'])->name('verifyEmail');
+
+    Route::post('resend-verify-email', [RegisteredUserController::class, 'resendverifyOtp'])->name('resendverifyOtp');
+
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
