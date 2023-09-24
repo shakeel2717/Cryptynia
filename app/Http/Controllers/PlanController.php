@@ -45,11 +45,13 @@ class PlanController extends Controller
 
         $plan = Plan::findOrFail($validatedData['plan_id']);
 
-
         // checking if this user have enough balnace
         if (balance(auth()->user()->id) < $plan->price) {
             return back()->withErrors(['Insufficient Balance']);
         }
+
+        // adding duration days in now date
+        $exp_date = now()->addDays($plan->duration);
 
         // activating user plan
         $userPlan = auth()->user()->userPlan()->create([
@@ -57,6 +59,7 @@ class PlanController extends Controller
             'amount' => $plan->price,
             'status' => 'active',
             'created_at' => now(),
+            'expiry_date' => $exp_date,
         ]);
 
 

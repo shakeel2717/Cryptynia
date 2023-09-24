@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->double('amount');
             $table->string('status')->default('active');
+            $table->timestamp('expiry_date');
             $table->timestamps();
         });
     }

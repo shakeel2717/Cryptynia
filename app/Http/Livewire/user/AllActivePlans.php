@@ -96,7 +96,8 @@ final class AllActivePlans extends PowerGridComponent
             ->addColumn('status_lower', fn (UserPlan $model) => strtolower(e($model->status)))
 
             ->addColumn('amount')
-            ->addColumn('created_at_formatted', fn (UserPlan $model) => Carbon::parse($model->created_at)->diffForHumans());
+            ->addColumn('created_at_formatted', fn (UserPlan $model) => Carbon::parse($model->created_at)->diffForHumans())
+            ->addColumn('expired_at_formatted', fn (UserPlan $model) => Carbon::parse($model->expiry_date)->diffForHumans());
     }
 
     /*
@@ -116,7 +117,15 @@ final class AllActivePlans extends PowerGridComponent
     public function columns(): array
     {
         return [
+
+            Column::make('Activated at', 'created_at_formatted', 'created_at')
+                ->sortable(),
+
+            Column::make('Will Expire', 'expired_at_formatted', 'expired_at')
+                ->sortable(),
+
             Column::make('Plan', 'plan'),
+
             Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
@@ -124,9 +133,6 @@ final class AllActivePlans extends PowerGridComponent
             Column::make('Amount', 'amount')
                 ->sortable()
                 ->searchable(),
-
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->sortable(),
 
         ];
     }
