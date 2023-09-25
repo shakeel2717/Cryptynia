@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 1";
         $plan->price = 50;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 10;
         $plan->duration = 90;
         $plan->save();
@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 2";
         $plan->price = 100;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 20;
         $plan->duration = 90;
         $plan->save();
@@ -154,7 +154,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 3";
         $plan->price = 300;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 30;
         $plan->duration = 90;
         $plan->save();
@@ -168,7 +168,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 4";
         $plan->price = 500;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 50;
         $plan->duration = 90;
         $plan->save();
@@ -182,7 +182,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 5";
         $plan->price = 1000;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 50;
         $plan->duration = 90;
         $plan->save();
@@ -196,7 +196,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 6";
         $plan->price = 3000;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 50;
         $plan->duration = 90;
         $plan->save();
@@ -210,7 +210,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 7";
         $plan->price = 5000;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 50;
         $plan->duration = 90;
         $plan->save();
@@ -224,7 +224,7 @@ class DatabaseSeeder extends Seeder
         $plan->name = "Plan 8";
         $plan->price = 10000;
         $plan->min_profit = 1;
-        $plan->max_profit = 1.5;
+        $plan->max_profit = 5;
         $plan->withdrawals = 50;
         $plan->duration = 90;
         $plan->save();

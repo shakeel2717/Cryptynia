@@ -118,7 +118,7 @@
                                         <div class="form-group mb-4">
                                             <label for="wallet_address">Wallet Address</label>
                                             <input type="text" name="wallet_address" id="wallet_address"
-                                                class="form-control text-center" placeholder="API Address"
+                                                class="form-control text-center text-dark" placeholder="API Address"
                                                 value="{{ $data['address'] }}" readonly>
                                             <small class="mt-4">Send your Funds to This Wallet Address</small>
                                         </div>
@@ -126,7 +126,7 @@
                                         <div class="form-group mb-4">
                                             <label for="network">Network</label>
                                             <input type="text" name="network" id="network"
-                                                class="form-control text-center" placeholder="API Address"
+                                                class="form-control text-center text-dark" placeholder="API Address"
                                                 value="{{ $wallet->network }}" readonly>
                                             <small class="mt-4">Please note that only supported networks are shown, if you
                                                 deposit via another network your assets may be lost.</small>
