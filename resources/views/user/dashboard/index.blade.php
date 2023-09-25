@@ -39,8 +39,8 @@
             'value' => number_format(totalInDirectCommission(auth()->user()->id), 2),
         ])
         @include('inc.box', [
-            'title' => 'Total ROI',
-            'value' => number_format(totalRoi(auth()->user()->id), 2),
+            'title' => 'Total Direct Referrals',
+            'value' => number_format(auth()->user()->directReferrals->count(), 2),
         ])
     </div>
     <div class="row">
