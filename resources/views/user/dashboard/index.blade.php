@@ -35,8 +35,8 @@
             'value' => number_format(totalDirectCommission(auth()->user()->id), 2),
         ])
         @include('inc.box', [
-            'title' => 'Total ROI',
-            'value' => number_format(totalRoi(auth()->user()->id), 2),
+            'title' => 'Indirect Commission',
+            'value' => number_format(totalInDirectCommission(auth()->user()->id), 2),
         ])
         @include('inc.box', [
             'title' => 'Total ROI',
