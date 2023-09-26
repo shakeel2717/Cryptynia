@@ -40,7 +40,9 @@
         ])
         @include('inc.box', [
             'title' => 'Total Direct Referrals',
-            'value' => number_format(auth()->user()->directReferrals->count(), 2),
+            'value' => number_format(
+                auth()->user()->directReferrals->count(),
+                2),
         ])
     </div>
     <div class="row">
@@ -85,13 +87,15 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-column">
                                     <h4 class="mb-2 {{ $plan->sum ? 'text-success' : 'text-danger' }}">
-                                        ${{ number_format($plan->amount, 2) }}</h4>
-                                    <h4 class="text-uppercase mb-0">{{ $plan->plan->name }}</h4>
+                                        ${{ number_format($plan->amount, 2) }} <small>({{ $plan->plan->name }})</small></h4>
+                                    <h4 class="text-uppercase mb-0">Expire
+                                        (<small>{{ now()->parse($plan->expiry_date)->diffForHumans() }}</small>)</h4>
                                 </div>
                                 <div class="text-end">
-                                    <h6 class="text-uppercase mb-2">{{ $plan->created_at->diffForHumans() }}</h6>
-                                    <h6 class="text-uppercase mb-0">Earned: ${{ number_format($plan->transactions()->sum('amount'), 2) }}
-                                    </h6>
+                                    <h6 class="text-uppercase mb-2">Start: {{ $plan->created_at->diffForHumans() }}</h6>
+                                        <h6 class="text-uppercase mb-0">Earned:
+                                            ${{ number_format($plan->transactions()->sum('amount'), 2) }}
+                                        </h6>
                                 </div>
                             </div>
                         </div>
