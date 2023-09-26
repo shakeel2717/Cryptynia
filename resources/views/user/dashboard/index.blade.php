@@ -144,7 +144,7 @@
                                 <div class="col-md-3">
                                     <div class="card border">
                                         <div class="card-body">
-                                            <h2 class="card-title">Total Direct Referrals</h2>
+                                            <h2 class="card-title">Total Direct</h2>
                                             <h2 class="text-end">{{ auth()->user()->directReferrals->count() }}</h2>
                                         </div>
                                     </div>
