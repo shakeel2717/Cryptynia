@@ -102,7 +102,13 @@ final class Transactions extends PowerGridComponent
 
             /** Example of custom column using a closure **/
             ->addColumn('amount_format', fn (Transaction $model) => e("$" . number_format($model->amount, 2)))
-            ->addColumn('status_format', fn (Transaction $model) => e($model->status ? "Approved" : "Pending"))
+            ->addColumn('status_format', function (Transaction $model) {
+                if($model->status){
+                    return '<span class="text-success">Approved</span>';
+                } else {
+                    return '<span class="text-danger">Pending</span>';
+                }
+            })
 
             ->addColumn('status')
             ->addColumn('sum')
@@ -220,14 +226,14 @@ final class Transactions extends PowerGridComponent
     {
         return [
 
-            //Hide button edit for ID 1
-            Rule::rows()
-                ->when(fn ($transaction) => $transaction->status == false)
-                ->setAttribute('class', 'text-danger'),
+            // //Hide button edit for ID 1
+            // Rule::rows()
+            //     ->when(fn ($transaction) => $transaction->status == false)
+            //     ->setAttribute('class', 'text-danger'),
 
-            Rule::rows()
-                ->when(fn ($transaction) => $transaction->status == true)
-                ->setAttribute('class', 'text-success'),
+            // Rule::rows()
+            //     ->when(fn ($transaction) => $transaction->status == true)
+            //     ->setAttribute('class', 'text-success'),
         ];
     }
 }
