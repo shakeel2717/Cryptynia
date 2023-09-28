@@ -2,6 +2,8 @@
 /node_modules
 /public/build
 /public/hot
+/public/orders
+/public/kyc
 /public/storage
 /public/orders
 /storage/*.key
