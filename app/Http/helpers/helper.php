@@ -103,7 +103,13 @@ function totalDirectCommission($user_id)
 
 function totalInDirectCommission($user_id)
 {
-    $transaction = Transaction::where('user_id', $user_id)->whereIn('type', ['In-Direct Commission L01','In-Direct Commission L02','In-Direct Commission L03'])->sum('amount');
+    $transaction = Transaction::where('user_id', $user_id)->whereIn('type', ['In-Direct Commission L01', 'In-Direct Commission L02', 'In-Direct Commission L03'])->sum('amount');
+    return $transaction;
+}
+
+function totalInDirectLevelCommission($user_id, $level)
+{
+    $transaction = Transaction::where('user_id', $user_id)->where('type', '$level')->sum('amount');
     return $transaction;
 }
 

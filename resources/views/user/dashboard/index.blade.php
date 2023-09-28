@@ -89,13 +89,14 @@
                                     <h4 class="mb-2 {{ $plan->sum ? 'text-success' : 'text-danger' }}">
                                         ${{ number_format($plan->amount, 2) }} <small>({{ $plan->plan->name }})</small></h4>
                                     <h4 class="text-uppercase mb-0">Expire
-                                        (<small>{{ now()->parse($plan->expiry_date)->diffForHumans() }}</small>)</h4>
+                                        (<small>{{ now()->parse($plan->expiry_date)->diffForHumans(now(), Carbon\CarbonInterface::DIFF_RELATIVE_AUTO, true, 3) }}</small>)
+                                    </h4>
                                 </div>
                                 <div class="text-end">
                                     <h6 class="text-uppercase mb-2">Start: {{ $plan->created_at->diffForHumans() }}</h6>
-                                        <h6 class="text-uppercase mb-0">Earned:
-                                            ${{ number_format($plan->transactions()->sum('amount'), 2) }}
-                                        </h6>
+                                    <h6 class="text-uppercase mb-0">Earned:
+                                        ${{ number_format($plan->transactions()->sum('amount'), 2) }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>

@@ -16,6 +16,7 @@ use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\user\DepositController;
 use App\Http\Controllers\user\KycController;
 use App\Http\Controllers\user\ProfileController as UserProfileController;
+use App\Http\Controllers\user\ReferralController;
 use App\Http\Controllers\user\TreeController;
 use App\Http\Controllers\WithdrawController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::prefix('user/')->name('user.')->middleware('auth', 'user', 'emailVerified
     Route::get('/plan/active', [PlanController::class, 'active'])->name('plan.active');
     Route::resource('plan', PlanController::class);
     Route::resource('tree', TreeController::class);
+    Route::resource('refer', ReferralController::class);
     Route::resource('withdraw', WithdrawController::class);
     Route::resource('ranks', RanksController::class);
     Route::resource('team_ranks', TeamRewardController::class);

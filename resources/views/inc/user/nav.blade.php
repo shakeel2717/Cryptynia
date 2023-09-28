@@ -45,6 +45,13 @@
             <span class="link-title">My Plans</span>
         </a>
     </li>
+    <li class="nav-item nav-category">Referral Earnings</li>
+    <li class="nav-item">
+        <a href="{{ route('user.refer.index') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Referral Statement</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Account Statement</li>
     <li class="nav-item">
         <a href="{{ route('user.history.all') }}" class="nav-link">
@@ -138,7 +145,8 @@
             <i class="link-icon" data-feather="box"></i>
             <span class="link-title">Profile Settings</span>
         </a>
-    </li><li class="nav-item">
+    </li>
+    <li class="nav-item">
         <a href="{{ route('user.kyc.index') }}" class="nav-link">
             <i class="link-icon" data-feather="box"></i>
             <span class="link-title">KYC Verification</span>
