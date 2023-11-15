@@ -112,7 +112,7 @@ class WithdrawController extends Controller
             Mail::to(auth()->user()->email)->send(new WithdrawRequest($withdraw));
         }
 
-        logHistory("User Withdraw Request" . $withdraw->amount) . " " . $wallet->name  . " " . $wallet->symbol;
+        logHistory("User Withdraw Request " . $withdraw->amount  . " " . $wallet->name  . " " . $wallet->symbol);
 
         return back()->with('success', 'Withdraw Request Send Successfully');
     }

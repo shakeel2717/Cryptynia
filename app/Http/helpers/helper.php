@@ -511,14 +511,11 @@ function edie($string)
 function logHistory($log)
 {
     try {
-        $log = new LogHistory();
-        $log->user_id = auth()->user()->id;
-        $log->log = $log;
-        $log->save();
+        $LogHistory = new LogHistory();
+        $LogHistory->user_id = auth()->user()->id;
+        $LogHistory->log = $log;
+        $LogHistory->save();
     } catch (\Exception $e) {
-        $log = new LogHistory();
-        $log->user_id = auth()->user()->id;
-        $log->log = $e->getMessage();
-        $log->save();
+        info($e->getMessage());
     }
 }
