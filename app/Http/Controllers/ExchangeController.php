@@ -69,6 +69,8 @@ class ExchangeController extends Controller
             'amount' => $exchange->amount,
         ]);
 
+        logHistory("User P2P Order Placed" . 'USDT Sell P2P @ ' . number_format($exchange->price, 2));
+
 
         return back()->with('success', 'Your P2P Order Placed');
     }

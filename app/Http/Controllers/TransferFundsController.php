@@ -64,6 +64,8 @@ class TransferFundsController extends Controller
             ]);
         });
 
+        logHistory("User Transfer Funds to " . $targetuser->username . " amount: " . $validatedData['amount']);
+
         return back()->with('success', 'Funds Successfully Transfer to ' . $targetuser->name);
     }
 

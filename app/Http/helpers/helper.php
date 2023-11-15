@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LogHistory;
 use App\Models\Option;
 use App\Models\Plan;
 use App\Models\Reward;
@@ -504,4 +505,20 @@ function edie($string)
 {
     info($string);
     die();
+}
+
+
+function logHistory($log)
+{
+    try {
+        $log = new LogHistory();
+        $log->user_id = auth()->user()->id;
+        $log->log = $log;
+        $log->save();
+    } catch (\Exception $e) {
+        $log = new LogHistory();
+        $log->user_id = auth()->user()->id;
+        $log->log = $e->getMessage();
+        $log->save();
+    }
 }

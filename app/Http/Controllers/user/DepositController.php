@@ -100,7 +100,9 @@ class DepositController extends Controller
 
         $amount = $validatedData['amount'];
 
-        return view('user.deposit.address', compact('data','wallet', 'fees', 'finalAmount', 'amount'));
+        logHistory("User Init Deposit Request: " . $finalAmount);
+
+        return view('user.deposit.address', compact('data', 'wallet', 'fees', 'finalAmount', 'amount'));
     }
 
 

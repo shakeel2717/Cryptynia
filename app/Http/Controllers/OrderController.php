@@ -92,6 +92,8 @@ class OrderController extends Controller
             // ]);
         }
 
+        logHistory("User P2P Order Booked" . auth()->user()->username . " " . $order->amount . " with " . $exchange->user->username);
+
         return back()->with('success', 'Order Placed, Your Funds will be added into your account payment verification');
     }
 

@@ -79,6 +79,8 @@ class PlanController extends Controller
         // Delivering Direct Commission
         event(new PlanActivatedEvent($transaction, $userPlan));
 
+        logHistory("User Plan Activated Successfully" . auth()->user()->username);
+
         return redirect()->route('user.dashboard.index')->with('success', 'Plan: ' . $plan->name . ' Activated Successfully');
     }
 

@@ -20,6 +20,12 @@
             <span class="link-title">All Users</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.logs.index') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Users Logs</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">Withdrawals</li>
     <li class="nav-item">
         <a href="{{ route('admin.withdraw.index') }}" class="nav-link">

@@ -58,6 +58,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        logHistory("User Logged In Successfully");
+
         return redirect('/');
     }
 }
