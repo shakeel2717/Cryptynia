@@ -19,6 +19,12 @@
             <span class="link-title">Withdrawal</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a href="{{ route('user.transfer.create') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Transfer</span>
+        </a>
+    </li>
     <li class="nav-item nav-category">P2P Trading</li>
     <li class="nav-item">
         <a href="{{ route('user.exchange.index') }}" class="nav-link">
