@@ -37,7 +37,7 @@ class TransferFundsController extends Controller
         // checking if thi user have enough balance
         // checking if this user have enough balance
         if (balance(auth()->user()->id) < $validatedData['amount']) {
-            // return back()->withErrors(['Insufficient Balance']);
+            return back()->withErrors(['Insufficient Balance']);
         }
 
 
