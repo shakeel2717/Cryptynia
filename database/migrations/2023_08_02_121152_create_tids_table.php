@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('wallet_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('hash_id')->unique();
             $table->double('amount');
-            $table->string('screenshot')->nullable();
             $table->string('exchange')->nullable();
             $table->double('fees');
             $table->boolean('status')->default(false);

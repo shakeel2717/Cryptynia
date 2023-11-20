@@ -244,14 +244,14 @@ class DatabaseSeeder extends Seeder
         $wallet->fees = 0;
         $wallet->save();
 
-        $wallet = new Wallet();
-        $wallet->name = "Ethereum";
-        $wallet->symbol = "ETH";
-        $wallet->code = "ETH";
-        $wallet->network = "ETH";
-        $wallet->icon = "ethereum.png";
-        $wallet->fees = 0;
-        $wallet->save();
+        // $wallet = new Wallet();
+        // $wallet->name = "Ethereum";
+        // $wallet->symbol = "ETH";
+        // $wallet->code = "ETH";
+        // $wallet->network = "ETH";
+        // $wallet->icon = "ethereum.png";
+        // $wallet->fees = 0;
+        // $wallet->save();
 
         $option = new Option();
         $option->key = 'min_deposit';
@@ -332,6 +332,13 @@ class DatabaseSeeder extends Seeder
         $option = new Option();
         $option->key = 'social_twitter';
         $option->value = 'https://www.twitter.com';
+        $option->save();
+
+        $option = new Option();
+        $option->key = 'active_gateway';
+        // 0 = CoinPayment
+        // 1 = Binance
+        $option->value = '1';
         $option->save();
 
 

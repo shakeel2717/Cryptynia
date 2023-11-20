@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\user;
 
+use App\Actions\CoinPaymentGateway;
 use App\Http\Controllers\Controller;
 use App\Models\CoinPayment;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use CoinpaymentsAPI;
+use Exception;
 
 class DepositController extends Controller
 {
@@ -47,62 +49,46 @@ class DepositController extends Controller
         // getting this wallet fees
         $wallet = Wallet::findOrFail($validatedData['paymentMethod']);
 
-        if ($wallet->status == null) {
+        if ($wallet->status == null || $wallet->status == false) {
             abort(404);
         }
 
-        $private_key = env('PRIKEY');
-        $public_key = env('PUBKEY');
+        switch (site_option("active_gateway")) {
+            case 0:
+                $coinPaymentGateway = new CoinPaymentGateway();
+                $information = $coinPaymentGateway->init($validatedData['amount'], $wallet->code, auth()->user()->email);
 
-        try {
-            $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
-            $amount = $validatedData['amount'];;
-            $currency1 = "USD";
-            $currency2 = $wallet->code;
-            $buyer_email = auth()->user()->email;
-            $ipn_url = env('IPN_URL');
-            $information = $cps_api->CreateSimpleTransactionWithConversion($amount, $currency1, $currency2, $buyer_email, $ipn_url);
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-            exit();
+                $data = $information['result'];
+
+                $finalAmount = $information['result']['amount'];
+                $fees = 0;
+
+                if ($wallet->fees > 0) {
+                    $fees = $information['result']['amount'] * $wallet->fees /  100;
+                    $finalAmount = $information['result']['amount'] + $fees;
+                }
+
+                $amount = $validatedData['amount'];
+
+                logHistory("User Init Deposit Request: " . $finalAmount);
+
+                return view('user.deposit.address', compact('data', 'wallet', 'fees', 'finalAmount', 'amount'));
+                break;
+
+            case 1:
+                $amount = $validatedData['amount'];
+                $finalAmount = $amount;
+                $fees = 0;
+                if ($wallet->fees > 0) {
+                    $fees = $amount * $wallet->fees / 100;
+                    $finalAmount = $amount + $fees;
+                }
+                return view('user.deposit.binance', compact('wallet', 'amount', 'fees', 'finalAmount'));
+                break;
+            default:
+                throw new Exception("No Payment Gateway Activated.");
+                break;
         }
-
-        if ($information['error'] != 'ok') {
-            return "Payment Gateway Timeout Error.";
-        }
-
-        // Inserting New Transaction Request Storing into session
-        $task = new CoinPayment();
-        $task->user_id = auth()->user()->id;
-        $task->amount = $information['result']['amount'];
-        $task->amountf = $validatedData['amount'];
-        $task->address = $information['result']['address'];
-        $task->timeout = $information['result']['timeout'];
-        $task->dest_tag = 1;
-        $task->from_currency = $currency1;
-        $task->to_currency = $currency2;
-        $task->txn_id = $information['result']['txn_id'];
-        $task->confirms_needed = $information['result']['confirms_needed'];
-        $task->checkout_url = $information['result']['checkout_url'];
-        $task->status_url = $information['result']['status_url'];
-        $task->qrcode_url = $information['result']['qrcode_url'];
-        $task->save();
-        $data = $information['result'];
-
-        $finalAmount = $information['result']['amount'];
-        $fees = 0;
-
-
-        if ($wallet->fees > 0) {
-            $fees = $information['result']['amount'] * $wallet->fees /  100;
-            $finalAmount = $information['result']['amount'] + $fees;
-        }
-
-        $amount = $validatedData['amount'];
-
-        logHistory("User Init Deposit Request: " . $finalAmount);
-
-        return view('user.deposit.address', compact('data', 'wallet', 'fees', 'finalAmount', 'amount'));
     }
 
 
@@ -111,18 +97,12 @@ class DepositController extends Controller
         $validatedData = $request->validate([
             'amount' => 'required|numeric|min:1',
             'hash_id' => 'required|string|unique:tids,hash_id',
-            'exchange' => 'required|string',
             'wallet_id' => 'required|integer',
-            'screenshot' => 'required|image',
             'finalAmount' => 'required|numeric|min:1',
         ]);
 
 
         $wallet = Wallet::findOrFail($validatedData['wallet_id']);
-
-        $screenshot = $request->file('screenshot');
-        $screenshot_name = auth()->user()->username . time() . rand(00, 11) . '.' . $screenshot->getClientOriginalExtension();
-        $screenshot->move(public_path('screenshots/'), $screenshot_name);
 
         // checking if this user request already pending
         if (auth()->user()->pending_tids()->get()->count() > 0) {
@@ -133,12 +113,10 @@ class DepositController extends Controller
             'hash_id' => $validatedData['hash_id'],
             'wallet_id' => $validatedData['wallet_id'],
             'amount' => $validatedData['finalAmount'],
-            'screenshot' => $screenshot_name,
-            'exchange' => $validatedData['exchange'],
             'fees' => $validatedData['finalAmount'] - $validatedData['amount'],
         ]);
 
-        return redirect()->route('user.dashboard.index')->with('success', 'Deposit Request Sent Successfully');
+        return redirect()->route('user.dashboard.index')->with('success', 'Deposit Request Sent Successfully, Please wait...');
     }
 
     /**

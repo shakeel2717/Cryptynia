@@ -15,7 +15,7 @@ class Wallet extends Model
         'code',
         'icon',
         'fees',
-        'address',
+        'wallet',
     ];
     use HasFactory;
 }
