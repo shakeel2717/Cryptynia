@@ -38,6 +38,24 @@ function checkUserStatus($user_id)
 }
 
 
+function totalIn($user_id)
+{
+    $in = Transaction::where('user_id', $user_id)
+        ->where('sum', true)
+        ->where('status', true)
+        ->sum('amount');
+    return $in;
+}
+
+function totalOut($user_id)
+{
+    $in = Transaction::where('user_id', $user_id)
+        ->where('sum', false)
+        ->sum('amount');
+    return $in;
+}
+
+
 function totalIncome($user_id)
 {
     $in = Transaction::where('user_id', $user_id)

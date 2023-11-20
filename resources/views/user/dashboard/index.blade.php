@@ -11,12 +11,12 @@
             'value' => number_format(balance(auth()->user()->id), 2),
         ])
         @include('inc.box', [
-            'title' => 'Total Income',
-            'value' => number_format(totalIncome(auth()->user()->id), 2),
+            'title' => 'Total Balance In',
+            'value' => number_format(totalIn(auth()->user()->id), 2),
         ])
         @include('inc.box', [
-            'title' => 'Total Withdrawal',
-            'value' => number_format(getAllWithdraw(auth()->user()->id), 2),
+            'title' => 'Total Balance Out',
+            'value' => number_format(totalOut(auth()->user()->id), 2),
         ])
         @include('inc.box', [
             'title' => 'Today ROI',
