@@ -150,10 +150,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="text-center">
-                                <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{ $wallet->wallet }}&chld=L|1&choe=UTF-8"
+                                <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=TDxLnf3gs7DejpxVLrSttWZxc9bdkwmTYJ&chld=L|1&choe=UTF-8"
                                     alt="Address">
                                 <div class="row">
-                                    <small class="mt-4">Wallet: {{ $wallet->wallet }} <br> & Amount:
+                                    <small class="mt-4">Wallet: TDxLnf3gs7DejpxVLrSttWZxc9bdkwmTYJ <br> & Amount:
                                         {{ number_format(getDepositAmount($wallet->symbol, $finalAmount), 8) }}
                                         {{ $wallet->symbol }}</small>
                                 </div>
