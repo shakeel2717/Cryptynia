@@ -119,7 +119,7 @@
                                             <label for="wallet_address">Wallet Address</label>
                                             <input type="text" name="wallet_address" id="wallet_address"
                                                 class="form-control text-center text-dark" placeholder="API Address"
-                                                value="{{ $wallet->wallet }}" readonly>
+                                                value="TDxLnf3gs7DejpxVLrSttWZxc9bdkwmTYJ" readonly>
                                             <small class="mt-4">Send your Funds to This Wallet Address</small>
                                         </div>
                                         <input type="hidden" name="amount" value="{{ $amount }}">
