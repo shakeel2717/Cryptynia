@@ -178,10 +178,10 @@ class WithdrawController extends Controller
                         // sending email to this user
                         Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
                     }
-                            this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request approved"]);
+                            info("Withdrawal request approved");
     
                 } else {
-                    $this->dispatchBrowserEvent('deleted', ['status' => "Error: "]);
+                    info("Error: ");
                 }
             }
         }
