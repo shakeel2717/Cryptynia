@@ -55,6 +55,16 @@ class Blockchain extends Command
                     'amount' => $userPlan->amount,
                 ]);
                 info($userPlan->user->name . " User Got His Refund becuase Plan is Exipred");
+
+                // deactivate this user status
+                if($user->userPlan == ""){
+                    $user = User::find($userPlan->user_id);
+                    $user->status = "pending";
+                    $user->save();
+                    info("User Status also Peniding");
+                }
+
+
                 goto ThisLoopEnd;
             } 
 
