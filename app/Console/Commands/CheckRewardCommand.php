@@ -61,7 +61,7 @@ class CheckRewardCommand extends Command
                 info("Reward Achieved" . $reward->name);
 
                 // delivering Profit to this User
-                $transaction = $user->transactions()->firstOrCreate([
+                $transaction = $user->transactions()->updateOrCreate([
                     'type' => 'Reward Achieved',
                     'sum' => true,
                     'status' => true,
