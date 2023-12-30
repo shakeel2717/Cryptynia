@@ -7,6 +7,7 @@ use App\Events\FreezeBalanceVerification;
 use App\Models\PlanProfit;
 use App\Models\Transaction;
 use App\Models\UserPlan;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
