@@ -66,7 +66,7 @@ class CheckRewardCommand extends Command
                     ->where('type', 'Reward Achieved')
                     ->where('amount',$reward->reward)
                     ->count();
-                    if($alreadyTransaction < 1){
+                    if($alreadyTransaction > 0){
                         info("Reward Already Delivered");
                     } else {
                         // delivering Profit to this User
