@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Reward;
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Console\Command;
 
 class CheckRewardCommand extends Command
