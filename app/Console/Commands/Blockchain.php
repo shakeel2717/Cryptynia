@@ -37,8 +37,30 @@ class Blockchain extends Command
             info($userPlan->user->username . '\'s Active Plan Found');
             info('Plan Amount: ' . $userPlan->amount);
             info('Plan Name: ' . $userPlan->plan->name);
-            // delivery profit to this user
+            
+            // checking if this user plan need to exipre
+            if ($userPlan->expiry_at && now() >= $userPlan->expiry_at) {
+                info('Plan is about to expired.');
+                // Perform actions for an expired plan, if needed
+                $userPlan->status = "expired";
+                $userPlan->save();
 
+                // delivery balance to this user
+                $dailyRoiTransaction = $userPlan->user->transactions()->create([
+                    'type' => 'Plan Expired Refund',
+                    'sum' => true,
+                    'status' => true,
+                    'user_plan_id' => $userPlan->id,
+                    'reference' => $userPlan->plan->name . ' Plan Expired & Amount :' . number_format($userPlan->amount, 2) . "Added to Account",
+                    'amount' => $userPlan->amount,
+                ]);
+                info($userPlan->user->name . " User Got His Refund becuase Plan is Exipred");
+                goto ThisLoopEnd;
+            } 
+
+
+            // delivery profit to this user
+            
             // checking if this user is netwoker
             if ($userPlan->user->networker) {
                 info("This user is Networker, Skipping.");

@@ -81,7 +81,7 @@
         <div class="col-md-6">
             <div class="card card-body mb-4">
                 <h2 class="card-title">All Active Packages</h2>
-                @forelse (auth()->user()->userPlans()->latest()->take(10)->get() as $plan)
+                @forelse (auth()->user()->userPlans()->where('status','active')->latest()->take(10)->get() as $plan)
                     <div class="card shadow-lg mb-2">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
