@@ -32,7 +32,7 @@ class CheckRewardCommand extends Command
         foreach ($users as $user) {
             // checking if this user have plan
 
-            if($user->userPlan->isEmpty()){
+            if($user->userPlan == ""){
                 info("User not have active plan");
                 goto ThisUserEndLoop;
             }
