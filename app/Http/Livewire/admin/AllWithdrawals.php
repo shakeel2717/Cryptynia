@@ -233,49 +233,121 @@ final class AllWithdrawals extends PowerGridComponent
         $withdraw = Withdraw::find($id['id']);
         
         if (site_option('auto_withdrawal')) {
-            $private_key = env('PRIKEY');
-            $public_key = env('PUBKEY');
-            $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
 
-            $withdrawalParams = [
-                'amount' => $withdraw->amount,
-                'currency' => $withdraw->method,
-                'add_tx_fee' => 0,
-                'address' => $withdraw->wallet,
-                'ipn_url' => env('IPN_URL'),
-                'auto_confirm' => 0,
-                'note' => 'Withdrawal Request for user: ' . auth()->user()->username,
+
+            $apiKey = env('BINANCE_API_KEY');
+            $apiSecret = env('BINANCE_API_SECRET');
+            $timestamp = round(microtime(true) * 1000);
+
+            $coin = "USDT";
+            $network = 'TRX';
+            $address = $withdraw->wallet; // Replace with actual address
+            $amount = $withdraw->amount + 1;
+
+            $data = [
+                'coin' => $coin,
+                'network' => $network,
+                'address' => $address,
+                'amount' => $amount,
+                'timestamp' => $timestamp,
             ];
 
-            try {
-                $withdrawalResult = $cps_api->CreateWithdrawal($withdrawalParams);
-                info($withdrawalResult);
+            $signature = hash_hmac('sha256', http_build_query($data), $apiSecret);
 
-                if ($withdrawalResult['error'] == 'ok') {
-                    $withdrawalId = $withdrawalResult['result']['id'];
-                    $withdraw->txId = $withdrawalId;
-                    $withdraw->status = true;
-                    $withdraw->save();
+            $curl = curl_init();
 
-                    // approving transaction
-                    foreach ($withdraw->transactions as $transaction) {
-                        $transaction->status = true;
-                        $transaction->reference = $transaction->reference . " & txId: " . $withdrawalId;
-                        $transaction->save();
-                    }
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.binance.com/sapi/v1/capital/withdraw/apply?coin=' . $coin . '&network=' . $network . '&address=' . $address . '&amount=' . $amount . '&timestamp=' . $timestamp . '&signature=' . $signature,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'X-MBX-APIKEY: ' . $apiKey
+                ),
+            ));
 
-                    if (!env('APP_DEBUG')) {
-                        // sending email to this user
-                        Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
-                    }
-                } else {
-                    info("Withdrawal request failed: {$withdrawalResult['error']}");
-                    $this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request failed: {$withdrawalResult['error']}"]);
+            $response = curl_exec($curl);
+            info($response);
+
+            $apiData = json_decode($response);
+
+            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            curl_close($curl);
+
+            if ($httpCode == 200) {
+                $withdraw->txId = $apiData->id;
+                $withdraw->status = true;
+                $withdraw->save();
+
+                foreach ($withdraw->transactions as $transaction) {
+                    $transaction->status = true;
+                    $transaction->reference = $transaction->reference . " & txId: " . $apiData->id;
+                    $transaction->save();
                 }
-            } catch (\Exception $e) {
-                info("Error: " . $e->getMessage());
-                $this->dispatchBrowserEvent('deleted', ['status' => "Error: " . $e->getMessage()]);
+
+                if (!env('APP_DEBUG')) {
+                    // sending email to this user
+                    Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
+                }
+                        $this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request approved"]);
+
+            } else {
+                $this->dispatchBrowserEvent('deleted', ['status' => "Error: "]);
             }
+
+
+
+            // $private_key = env('PRIKEY');
+            // $public_key = env('PUBKEY');
+            // $cps_api = new CoinpaymentsAPI($private_key, $public_key, 'json');
+
+            // $withdrawalParams = [
+            //     'amount' => $withdraw->amount,
+            //     'currency' => $withdraw->method,
+            //     'add_tx_fee' => 0,
+            //     'address' => $withdraw->wallet,
+            //     'ipn_url' => env('IPN_URL'),
+            //     'auto_confirm' => 0,
+            //     'note' => 'Withdrawal Request for user: ' . auth()->user()->username,
+            // ];
+
+            // try {
+            //     $withdrawalResult = $cps_api->CreateWithdrawal($withdrawalParams);
+            //     info($withdrawalResult);
+
+            //     if ($withdrawalResult['error'] == 'ok') {
+            //         $withdrawalId = $withdrawalResult['result']['id'];
+            //         $withdraw->txId = $withdrawalId;
+            //         $withdraw->status = true;
+            //         $withdraw->save();
+
+            //         // approving transaction
+            //         foreach ($withdraw->transactions as $transaction) {
+            //             $transaction->status = true;
+            //             $transaction->reference = $transaction->reference . " & txId: " . $withdrawalId;
+            //             $transaction->save();
+            //         }
+
+            //         if (!env('APP_DEBUG')) {
+            //             // sending email to this user
+            //             Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
+            //         }
+            //     } else {
+            //         info("Withdrawal request failed: {$withdrawalResult['error']}");
+            //         $this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request failed: {$withdrawalResult['error']}"]);
+            //     }
+            // } catch (\Exception $e) {
+            //     info("Error: " . $e->getMessage());
+            //     $this->dispatchBrowserEvent('deleted', ['status' => "Error: " . $e->getMessage()]);
+            // }
+
+
         }
     }
 
