@@ -60,17 +60,27 @@ class CheckRewardCommand extends Command
 
                 info("Reward Achieved" . $reward->name);
 
-                // delivering Profit to this User
-                $transaction = $user->transactions()->create([
-                    'type' => 'Reward Achieved',
-                    'sum' => true,
-                    'status' => true,
-                    'reference' => $reward->name . ' Reward Achieved',
-                    'amount' =>  $reward->reward,
-                    'reward_id' =>  $reward->id,
-                ]);
+                // checking if this reward already devliered
+                $alreadyTransaction = Transaction::where('user_id', $user->id)
+                    ->where('type', 'Reward Achieved')
+                    ->where('amount',$reward->reward)
+                    ->count();
+                    if($alreadyTransaction < 1){
+                        info("Reward Already Delivered");
+                    } else {
+                        // delivering Profit to this User
+                        $transaction = $user->transactions()->create([
+                            'type' => 'Reward Achieved',
+                            'sum' => true,
+                            'status' => true,
+                            'reference' => $reward->name . ' Reward Achieved',
+                            'amount' =>  $reward->reward,
+                            'reward_id' =>  $reward->id,
+                        ]);
+        
+                        info("Reward Transaction Added");
+                    }
 
-                info("Reward Transaction Added");
             }
 
 
