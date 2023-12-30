@@ -39,7 +39,7 @@ class Blockchain extends Command
             info('Plan Name: ' . $userPlan->plan->name);
             
             // checking if this user plan need to exipre
-            if ($userPlan->expiry_at && now() >= $userPlan->expiry_at) {
+            if ($userPlan->expiry_date && now() >= $userPlan->expiry_date) {
                 info('Plan is about to expired.');
                 // Perform actions for an expired plan, if needed
                 $userPlan->status = "expired";
