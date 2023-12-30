@@ -31,6 +31,10 @@ class CheckRewardCommand extends Command
         $users = User::where('status', 'active')->get();
         foreach ($users as $user) {
             // checking if this user have plan
+            // checking if this user have active plan
+            if ($user->userPlan->count() < 1) {
+                goto ThisUserEndLoop;
+            }
             if ($user->userPlan->amount < 1) {
                 info("User not have amount invested");
             }
