@@ -52,7 +52,7 @@ class CheckRewardCommand extends Command
             $rewards = Reward::get();
             $currentRewardRequried = 0;
             foreach ($rewards as $reward) {
-                $currentRewardRequried += $reward->business;
+                $currentRewardRequried = $reward->business;
                 info("Current Reward: " . $currentRewardRequried);
                 if (myDirectBusiness($user->id) < $currentRewardRequried) {
                     info("Reward not Achieved" . myDirectBusiness($user->id) . " " . $reward->business);
