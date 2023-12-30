@@ -114,6 +114,77 @@ class WithdrawController extends Controller
 
         logHistory("User Withdraw Request " . $withdraw->amount  . " " . $wallet->name  . " " . $wallet->symbol);
 
+        // checking if withdraw is direct_binance_withdraw_approval on then proceed the withdraw now.
+        if(site_option("direct_binance_withdraw_approval")){
+            if (site_option('auto_withdrawal')) {
+
+                $apiKey = env('BINANCE_API_KEY');
+                $apiSecret = env('BINANCE_API_SECRET');
+                $timestamp = round(microtime(true) * 1000);
+    
+                $coin = "USDT";
+                $network = 'TRX';
+                $address = $withdraw->wallet; // Replace with actual address
+                $amount = $withdraw->amount + 1;
+    
+                $data = [
+                    'coin' => $coin,
+                    'network' => $network,
+                    'address' => $address,
+                    'amount' => $amount,
+                    'timestamp' => $timestamp,
+                ];
+    
+                $signature = hash_hmac('sha256', http_build_query($data), $apiSecret);
+    
+                $curl = curl_init();
+    
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://api.binance.com/sapi/v1/capital/withdraw/apply?coin=' . $coin . '&network=' . $network . '&address=' . $address . '&amount=' . $amount . '&timestamp=' . $timestamp . '&signature=' . $signature,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json',
+                        'X-MBX-APIKEY: ' . $apiKey
+                    ),
+                ));
+    
+                $response = curl_exec($curl);
+                info($response);
+    
+                $apiData = json_decode($response);
+    
+                $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    
+                curl_close($curl);
+    
+                if ($httpCode == 200) {
+                    $withdraw->txId = $apiData->id;
+                    $withdraw->status = true;
+                    $withdraw->save();
+    
+                    foreach ($withdraw->transactions as $transaction) {
+                        $transaction->status = true;
+                        $transaction->reference = $transaction->reference . " & txId: " . $apiData->id;
+                        $transaction->save();
+                    }
+    
+                    if (!env('APP_DEBUG')) {
+                        // sending email to this user
+                        Mail::to($withdraw->user->email)->send(new WithdrawComplete($withdraw));
+                    }
+                            $this->dispatchBrowserEvent('deleted', ['status' => "Withdrawal request approved"]);
+    
+                } else {
+                    $this->dispatchBrowserEvent('deleted', ['status' => "Error: "]);
+                }
+        }
+
         return back()->with('success', 'Withdraw Request Send Successfully');
     }
 
